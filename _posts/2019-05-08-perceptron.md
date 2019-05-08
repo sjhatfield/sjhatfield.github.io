@@ -21,7 +21,7 @@ What about a [link](https://sjhatfield.github.com)
 Here's a bulleted list
 * one
 + two
--threee
+- threee
 
 Here's a numbered list:
 1. First
