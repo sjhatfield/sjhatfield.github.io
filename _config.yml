@@ -113,7 +113,7 @@ author:
   email            :
   links:
     - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
+      icon: "s.j.hatfield@live.co.uk"
       # url: mailto:your.name@email.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -125,7 +125,7 @@ author:
       icon: "fab fa-fw fa-facebook-square"
       # url: "https://facebook.com/"
     - label: "GitHub"
-      icon: "sjhatfield"
+      icon: "https://github.com/sjhatfield/"
       # url: "https://github.com/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
@@ -141,7 +141,7 @@ footer:
       icon: "fab fa-fw fa-facebook-square"
       # url:
     - label: "GitHub"
-      icon: "sjhatfield"
+      icon: "https://github.com/sjhatfield/"
       # url:
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
