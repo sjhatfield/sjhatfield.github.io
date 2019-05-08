@@ -108,7 +108,7 @@ analytics:
 author:
   name             : "Sam Hatfield"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "My background is mathematics. I studied pure mathematics for undergrad and postgrad and have been teaching High School mathematics for 6 years in both Mexico and the Philippines. For two years now I have been studying Computer Science topics and am now focused on Data Science. Data Science is the perfect blend of rigorous mathematics, fun problem solving using code and the ability to solve real-world, important, problems. I am taking a year off from to work to be a full-time student of Data Science. I am looking to transition into a Data Science role in Summer 2020. Here I will be writing articles and blog posts about what I have learnt."
+  bio              : "Mathematician transitioning into Data Science"
   location         : "Manila, Philippines"
   email            :
   links:
