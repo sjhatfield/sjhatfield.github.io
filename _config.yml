@@ -15,11 +15,11 @@
 minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale                   : "en-US"
-title                    : "Site Title"
+locale                   : "en-UK"
+title                    : "Sam Hatfield"
 title_separator          : "-"
-name                     : "Your Name"
-description              : "An amazing website."
+name                     : "Sam Hatfield"
+description              : "My journey from mathematics teacher to Data Scientist"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -106,10 +106,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Sam Hatfield"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an amazing person."
-  location         : "Somewhere"
+  bio              : "My background is mathematics. I studied pure mathematics for undergrad and postgrad and have been teaching High School mathematics for 6 years in both Mexico and the Philippines. For two years now I have been studying Computer Science topics and now am focusing on Data Science. I am taking a year off from to work to be a full-time Dad and student. I am looking to transition into a Data Science role in Summer 2020. Here I will be writing articles and blog posts about what I have learnt."
+  location         : "Manila, Philippines"
   email            :
   links:
     - label: "Email"
@@ -125,7 +125,7 @@ author:
       icon: "fab fa-fw fa-facebook-square"
       # url: "https://facebook.com/"
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: "sjhatfield"
       # url: "https://github.com/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
@@ -141,7 +141,7 @@ footer:
       icon: "fab fa-fw fa-facebook-square"
       # url:
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: "sjhatfield"
       # url:
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
@@ -293,3 +293,11 @@ defaults:
       comments: # true
       share: true
       related: true
+
+# _pages
+- scope:
+    path: ""
+    type: pages
+  values:
+    layout: single
+    author_profile: true
