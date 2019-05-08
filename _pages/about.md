@@ -20,4 +20,4 @@ I've always been passionate about learning and am always learning something new.
 
 # The Now
 
-I am in the process of studying Data Science to make a career change. I have one year studying Data Science full time with a plan to apply for jobs in the summer of 2020. In this blog I will be writing about what I have learnt and presenting personal Data Science projects applying what I have learnt to problems I have identified.
+I am in the process of studying Data Science to make a career change. I have one year studying Data Science full-time with a plan to apply for jobs in the summer of 2020. In this blog I will be writing about what I have learnt and presenting personal Data Science projects applying what I have learnt to problems I have identified.
