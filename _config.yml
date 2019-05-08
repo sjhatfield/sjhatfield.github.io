@@ -141,8 +141,8 @@ footer:
       icon: "fab fa-fw fa-facebook-square"
       # url:
     - label: "GitHub"
-      icon: "https://github.com/sjhatfield/"
-      # url:
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/sjhatfield"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
