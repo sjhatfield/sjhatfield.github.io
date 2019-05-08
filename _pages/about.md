@@ -1,16 +1,14 @@
 ---
 layout: single
 permalink: /about/
-title: "About Me"
+title: "About"
 
 ---
-# Me
-
-My name is Sam Hatfield and I am a Brit living in Manila, Philippines. My interests include machine learning, statistics, mathematics, programming and football (soccer).
+My name is Sam Hatfield and I am a Brit living in Manila, Philippines. My interests include Data Science, statistics, mathematics, programming and football (soccer).
 
 # My Background
 
-My academic background is mathematics which I have a Masters degree in. The focus of my Masters was topology and manifolds. At the end of my degree, I still loved mathematics and wanted to live somewhere outside of my home country of Great Britain. Hence, I became a mathematics teacher with the plan to move abroad.
+My academic background is mathematics which I have a Masters degree in. In my studies I went deep into the purest forms of mathematics such as topology, manifolds, lie algebras, continuum mechanics, group theory and more. At the end of my degree, I still loved mathematics and wanted to live somewhere outside of my home country of Great Britain. Hence, I became a mathematics teacher with the plan to move abroad.
 
 # My Previous Career
 
