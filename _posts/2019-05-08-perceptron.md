@@ -16,7 +16,7 @@ And here's some *italics*
 
 Here's some **bold** text
 
-What about a [link](https://sjhatfield.github.com)
+What about a [link](https://sjhatfield.github.io)
 
 Here's a bulleted list
 * one
