@@ -6,7 +6,7 @@ title: "About"
 ---
 My name is Sam Hatfield and I am a Brit living in Manila, Philippines. My interests include data science, statistics, mathematics, programming and football (soccer). 
 
-My academic background is mathematics.In my studies I went deep into the purest forms of mathematics such as topology, manifolds, lie algebras, continuum mechanics, group theory and more. I have been working as a mathematics teacher in two International Schools since leaving academia.
+My academic background is mathematics. In my studies I went deep into the purest forms of mathematics such as topology, manifolds, lie algebras, continuum mechanics, group theory and more. I have been working as a mathematics teacher in two International Schools since leaving academia.
 
 I've always been passionate about learning and am always learning something new. Two years ago I decided to learn how to code. All I had learnt in my time at university was a bit of Matlab. Over the past two years I have studyied various Computer Science topics and various programming languages. I have come to the conclusion that the topics of data science combine my passion for mathematics, with the fun of coding and the satisfaction of getting results to real-world problems.
 
