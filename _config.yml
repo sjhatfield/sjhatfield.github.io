@@ -114,7 +114,7 @@ author:
   links:
     - label: "Email"
       icon: fab fa-fw fa-email
-      url: mailto:s.j.hatfield@live.co.uk
+      #url: mailto:s.j.hatfield@live.co.uk
     #- label: "Website"
     #  icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
