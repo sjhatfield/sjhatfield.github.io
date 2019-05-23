@@ -1,7 +1,7 @@
 # sjhatfield.github.io
 My Data Science Blog
 
-This is a place for me to post what I am learning about and how I am applying concepts I have learnt to real-world problems.
+This is a place for me write about what I am learning and how I am applying concepts I have learnt to real-world problems.
 
 Credits:
 
