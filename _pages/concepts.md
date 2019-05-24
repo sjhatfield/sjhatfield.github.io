@@ -1,7 +1,7 @@
 ---
 layout: archive
-permalink: /projects/
-title: "Data Science Personal Projects"
+permalink: /concepts/
+title: "Data Science Concepts Explained"
 author_profile: true
 ---
 
