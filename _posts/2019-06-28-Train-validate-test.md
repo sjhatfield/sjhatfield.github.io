@@ -8,7 +8,7 @@ classes: wide
 
 ## Why Split At All?
 
-After training a model the first question someone is bound to ask is "So how good is it?". To answer that question you need to assess the models quality in an **unbiased,  way. In general, this means you need to use the model to predict or classify from data that **it has not been trained on**. Let me give a slightly extreme example, that highlights why assessing a model on the data it has been trained on leads to an incorrect assessment of it's quality.
+After training a model the first question someone is bound to ask is "So how good is it?". To answer that question you need to assess the models quality in an **unbiased**,  way. In general, this means you need to use the model to predict or classify from data that **it has not been trained on**. Let me give a slightly extreme example, that highlights why assessing a model on the data it has been trained on leads to an incorrect assessment of it's quality.
 
 ### Example
 
