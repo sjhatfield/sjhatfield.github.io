@@ -24,16 +24,38 @@ Adams, Chad, Dae-Jung, Frank, Iban, Issiah, Lee, Oswald, Ridler, Umaya, Vahit, X
 
 The S-predictor has an RMSE of 10.32 whilst a more sensible prediction of M has an RMSE of 7.38.
 
-Whilst this is a slightly unrealistic example, it shows that a model can (and most likely will) fit the biases found in the dataset. This is called overfitting.
+Whilst this is a slightly unrealistic example, it shows that a model can (and most likely will) fit the biases found in the dataset. This is called **overfitting**.
 
-## How To Assess The Quality Of One Model
+## Assessing The Quality Of A Single Model
 
-If a single model is to be assessed then the dataset should be split into two parts, a training set and a testing set. The model should be fit to the training data and then the testing set should be used to assess it's quality. This usually means generating responses to the training sets predictor variables and then assessing their difference to the actual responses.
+If a single model is to be assessed then the dataset should be split into two parts, a training set and a testing set. The model should be fit to the training data and then the testing set should be used to assess it's quality. This usually means generating responses to the training sets predictor variables and then assessing their difference to the actual responses. Generally, it is recommended to select 70-90% for training and 10-30% for testing.
 
 However, this approach does not work if we are fitting multiple models, picking the best and then assessing the quality of the final one chosen.
 
 ## How To Pick A Model From Many And Then Assess Quality
 
-[^1]: These names are not real but their distribution in the alphabet is accuracte to a class I taught.
+The above method of splitting data into training and testing is not sufficient when we are picking the best model from many. This is because if we were to fit all the models on the training data then pick the best to perform on the test data we would inadvertently pick the one that matches the biases of the testing data. For example, if we think about guessing the first letter of a students name in a class and the test dataset happens to be the unusually distributed one that I taught then we are going to choose the model which predicts more towards the second half of the alphabet.
+
+To avoid this pitfull, a third dataset needs to be constructed. We need a training set to fit the models, a validation set to select the best performing model and a final test dataset to assess the quality of the final model chosen. Generally, it is recommened to select 50-70% for training and then split the remaining data evenly between validation and testing.
+
+## The Importance Of Choosing Unbiased Validation And Testing Sets
+
+As the example above demonstrated, it is essential that validation and testing sets are chosen that represent the overall dataset well and are not biased. Imagine working with hamburger sales data for a restaurant and your model was fit to the weekday data and then tested on the weekend data. Your model would most likely perform very badly because the sales data will be significantly different during the week compared to the weekend.
+
+To avoid this issue, usually it is best to randomly select datapoints. One way of doing this is to shuffle the rows of the dataframe you are working with and then select the first $$x%$$ of rows. In R this would look like
+
+```r
+dataset[sample(nrow(dataset)),]
+```
+
+and in Python using Pandas
+
+```python
+df.sample(frac=1, inplace=True)
+```
+
+It can be important to make sure a certain proportion of responses are in the validation and test sets. For example, if you are building a model to predict whether bank customers default on a loan and 10% of your dataset default. Then it could be important to make sure 10% of the validation and test sets defaulted also. This can be done by randomly selecting and then checking whether the proportion is correct or splitting the dataset into the defaulters and non-defaulters and selecting proportions of each to be then combined again.
+
+[^1]: These names are not real but their distribution in the alphabet is tyhe same as a class I taught.
 
 [^2]: [Root-mean-square error](https://www.wikiwand.com/en/Root-mean-square_deviation).
