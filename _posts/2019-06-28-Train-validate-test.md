@@ -18,7 +18,7 @@ Chaudri, Chin, Gardener, Radley, Smith, Simon, Soo, Subram, Sydney, Truman, Yao,
 
 As you may notice, most of the names are in the second half of the alphabet. By the time I had gotten to the fourth name taking attendence I was already to R. A model to predict the first letter, of the last name of mathematics students which always predict **S** would perform well on this dataset. By using a letters distance from the prediction in the alphabet as the error, it's RMSE[^2] would only be 7.87.
 
-However, do we really think that always predicting a students name to begin with an S will perform well in general. It is debatable whether last names will be evenly distributed accross the alphabet but in a school of many nationalities like mine was it may be fairly even. Surely, predicting a last name to begin with one of the median letters (M or N) in the alphabet would lead to better accuracy. On a more evenly distributed class:
+However, do we really think that always predicting a students name to begin with an S will perform well in general. It is debatable whether last names will be evenly distributed accross the alphabet but in a school of many nationalities as mine, it may be fairly even. Surely, predicting a last name to begin with one of the median letters (M or N) in the alphabet would lead to better accuracy. On a more evenly distributed class:
 
 Adams, Chad, Dae-Jung, Frank, Iban, Issiah, Lee, Oswald, Ridler, Umaya, Vahit, Xi.
 
