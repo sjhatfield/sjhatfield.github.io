@@ -24,7 +24,7 @@ Adams, Chad, Dae-Jung, Frank, Iban, Issiah, Lee, Oswald, Ridler, Umaya, Vahit, X
 
 The S-predictor has an RMSE of 10.32 whilst a more sensible prediction of M has an RMSE of 7.38.
 
-Whilst this is a slightly unrealistic example, it shows that a model can (and most likely will) fit the biases found in the dataset. This is called **overfitting**.
+Whilst this is a slightly unrealistic example, it shows that a model can fit the biases found in the dataset. This is called **overfitting**.
 
 ## Assessing The Quality Of A Single Model
 
