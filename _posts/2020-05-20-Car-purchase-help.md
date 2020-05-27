@@ -10,11 +10,11 @@ Spoiler: if you want to skip to the finished product follow [this link](http://1
 
 ## The Problem
 
-Buying a used car is a tricky task where a wrong decision can have large financial implications. There are hundreds of options of make and model available and then possibly thousands of options once a make and model have been chosen. Vehicles vary vastly in condition, age and price, and it is impossible to know you have made the best decision when purchasing a used car. The client is in the position of wanting to purchase a used vehicle but is unsure of what would be a good deal, which model would be the best for their needs and how long they would expect the vechicle to last once purchased. This application was developed to help the client assess how good a deal an advert for a used car is.
+Buying a used car is a tricky task, where a wrong decision can have large financial implications. There are hundreds of options of make and model available and then possibly thousands of options once a make and model have been chosen. Vehicles vary vastly in condition, age and price, and it is impossible to know you have made the best decision when purchasing a used car. The client (my spouse) is in the position of wanting to purchase a used vehicle but is unsure of what would be a good deal, which model would be the best for their needs and how long they would expect the vechicle to last once purchased. This application was developed to help the client assess how good a deal an advert for a used car is.
 
 ## The Ideal Outcome
 
-The application will be a success if the client is able to input the details of a used car they have found for sale and the application is able to instantly give them feedback as to whether the listing appears to be a good deal. Ideally, the application will be able to give them more than just a yes/no on whether the deal appears to be good. Possibly the application will even be able to provide the same information about similar vehicles.
+The application will be a success if the client is able to input the details of a used car they have found for sale and the application is able to instantly give them feedback, as to whether the listing appears to be a good deal. Ideally, the application will be able to give them more than just a yes/no on whether the deal appears to be good. Possibly, the application will even be able to provide the same information about similar vehicles.
 
 ### Formulation as a Machine Learning Problem
 
@@ -34,9 +34,9 @@ It is good practice to treat the original dataset as immutable and use a functio
 
 Functions to format the data were written in a [`data_processing.py`](https://github.com/sjhatfield/car-purchase-help/blob/master/car_purchase_help/data_processing.py), kept separate from the notebooks, as notebooks are used for **exploration** and **communication** only. These functions can then be imported into any python file or notebook where they are needed.
 
-The main function `format_raw_df` takes in the Pandas dataframe loaded from the csv file and performs the processing steps which were determined through the initial exploration. Only one column, `county`, was dropped from the DataFrame as it was $100%$ missing. It was tempting at this point to greatly reduce the size of the DataFrame by dropping all other columns that did not seem useful. However, machine-learning solutions should be iterated upon and improved over and over, and it is impossible to say whether columns would be used in later solutions.
+The main function `format_raw_df` takes in the Pandas dataframe loaded from the csv file and performs the processing steps which were determined through the initial exploration. Only one column, `county`, was dropped from the DataFrame as it was $$100%$$ missing. It was tempting at this point to greatly reduce the size of the DataFrame by dropping all other columns that did not seem useful. However, machine-learning solutions should be iterated upon and improved over and over, and it is impossible to say whether columns would be used in later solutions.
 
-As shown by the exploration there were outliers in important columns so these were removed. It was decided to remove any vehicle produced before 1981 and after 2019 (there were some cars from the future). Also, milage values below $1,000$ and above $300,000$ were removed, as well as price below $\$500$.
+As shown by the exploration there were outliers in important columns so these were removed. It was decided to remove any vehicle produced before 1981 and after 2019 (there were some cars from the future). Also, milage values below $$1,000$$ and above $$300,000$$ were removed, as well as price below $$\$500$$.
 
 ## A Second Exploration After Formatting
 
@@ -46,10 +46,55 @@ The same plots as the initial exploration were produced and the shapes of distri
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/car-purchase-help/year_manufacture_histogram.png" alt="Histogram showing yer of manufacture. Why do you think there a dip at 2008-2009?">
 
-However, another set of outliers was discovered which would be very influential in making the all-important prediciton of price of vehicle. The plot below shows a Honda, CR-V from 2013 listed as having a price below $\$2,500$ which is vastly different to the other prices for this vehicle, even more so when you consider the fact that it has less than $20,000$ miles on the clock. These outliers could pull down the prediciton of the value of this vehicle. Therefore, it was decided they should be removed and this will be done when models are trained.
+However, another set of outliers was discovered which would be very influential in making the all-important prediciton of price of vehicle. The plot below shows a Honda, CR-V from 2013 listed as having a price below $\$2,500$ which is vastly different to the other prices for this vehicle, even more so when you consider the fact that it has less than $$20,000$$ miles on the clock. These outliers could pull down the prediciton of the value of this vehicle. Therefore, it was decided they should be removed and this will be done when models are trained.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/car-purchase-help/honda_crv_2013.png" alt="Scatter plot of mileage against price for Honda CR-Vs from 2013.">
 
-## Training Models
+## Fitting Regressions
 
-As outlined earlier, the purpose of this project was not to develop fancy, sophisticated models, it was to complete a full machine learning project from start to finish. Therefore, simple linear regression was used on specific vehicles (make and model) from each year. From the mileage, price was predicted which according to some quick research is an appropriate way to predict price. Regressions were fit and saved for any vehicle with 30 or more data points after outliers were removed, according to the $1.5 IQR +/- Q_3/Q_1$ rule. The models were pickled and saved in the model directory for quick access by the web application. [This notebook](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/model.ipynb) did the training using the functions from the [`model1.py` file](https://github.com/sjhatfield/car-purchase-help/blob/master/car_purchase_help/model1.py).
+As outlined earlier, the purpose of this project was not to develop fancy, sophisticated models, it was to complete a full machine learning project from start to finish. Therefore, simple linear regression was used on specific vehicles (make and model) from each year. From the mileage, price was predicted which according to some quick research is an appropriate way to predict price. Regressions were fit and saved for any vehicle with 30 or more data points after outliers were removed, according to the $$1.5 IQR +/- Q_3/Q_1$$ rule. The models were pickled and saved in the model directory for quick access by the web application. [This notebook](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/model.ipynb) did the training using the functions from the [`model1.py` file](https://github.com/sjhatfield/car-purchase-help/blob/master/car_purchase_help/model1.py).
+
+After training had taken place, 2,242 linear regressions were saved which means that over 2,000 make, model, year combinations had enough datapoints in the dataset for a regression to be fit. Now predictions can be made by loading the `.pkl` files which is quick as they are around 2kB each and a predcition of price can be made given the mileage on the clock. Some example predicitons can be seen in the [notebook](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/model.ipynb).
+
+### Giving Advice
+
+Now the question was how to let the client know whether the listing they had found appeared to be a good one. When the client puts in the information say, manufacturer=Ford, model=F-150, year=2012, mileage=100,000 listed_price=22,000 we could have simply returned the predicted price and they could consider whether their listed price is greatly below the prediction but it would be better to give a judgement. 
+
+To let the client know whether a listing is a good deal, a very good deal, a very bad deal etc it was decided that the listed price would be compared to all other listings for that vehicle by considering the listing residual (difference between value and predcited value on the regression line) and the average absolute residual of all datapoints that were used to fit the model. This means that if prices had a high variance for a certain make and model the listed price would have to be further below the predicted price to get the classification of a good deal. After some experimentation values between $$0.75 \times MAR$$ and $$1.5 \times MAR$$ (where $$MAR$$ is the mean absolute residual) were determined to be good deals and those below $$1.5 \times MAR$$ where a very good deal.
+
+### Giving More Advice
+
+The client tested the application at this stage and was happy with how it functioned. They tried some vehicles they were interested in and the app was able to give sound advice. However, they wanted the app to be able to give some more information about how the car would retain its value.
+
+Using the already fit regressions, we can predict how the value of the car will decrease as it is driven further and its odometer increases. The slope of the regression tells us how much the value of the car should decrease for each mile driven so we multiplied this value by $$10,000$$ to let the user know how much the value of the car should decrease for each additional $$10,000$$ miles on the clock.
+
+## Similar Car Information
+
+Again, the client tested this second form of advice and again they were satisfied. Whilst using the app they wanted to compare the information given for multiple vehicles so were opening multiple tabs containing the app. We agreed that it would nice if the app could present information for some vehicles that are similar to the one they searched for. However, this kind of information would be very hard to glean from the Craiglist dataset.
+
+Instead of trying to determine which cars are similar from the limited information in the Craiglist dataset it was decided it would be far easier to find a website which contained that information and simply scrape it. This process can be seen [here](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/similar_vehicle_scraping.ipynb).
+
+It took some time to find a website which provided the required information in a simple enough HTML file which could be scraped. The downside of the website used is that it is Australian so some of the vehciles in the Craigslist dataset did not exist on the site.
+
+### Similar Car Advice
+
+Once the similar vehicle dataset was [formatted](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/similar_vehicle_formatting.ipynb) it could be used to give the third and [final level of advice](https://github.com/sjhatfield/car-purchase-help/blob/master/car_purchase_help/model3.py) to the client. Now when the client asks for a judgement on a used car listing they also get the predicted price of similar vehicles from the same year and how much their value will decrease per 10,000 additional miles. This means they can weigh up the value and value retention of the vehicle and similar vehicles they are considering purchasing.
+
+## What Have I Learnt?
+
+Here is a list of the techniques, technologies, concepts completing this project has introduced to me for the first time.
+
+* Pickling (serialzing) Python code so that it can be loaded (deserialized) later
+* How to structure a Data Science project [link](https://drivendata.github.io/cookiecutter-data-science/)
+* Altering the header in a HTTP request to facilitate scraping of a site
+* The ease of formatting paths in Python 3.8+ with pathlib
+* Using type hints to make code easier to read and write
+* The lru_cache decorator
+* Setting up an Ubuntu remote virtual machine to act as a server
+* Deploying a flask app on a remote server using nginx, gunicorn and tmux
+
+## Extensions To The App
+
+The first extension that should be considered is improving the quality of the data. It contained vehicle for-sale listings from Craigslist. Anyone can go on Craiglist and list their vehicle for any price they desire so the prices are not reliable. It is possible to obtain actual, completed, car sales data but it would require payment.
+
+An idea which was considered but not taken further was looking up vehicle maintenance histories to give the client an idea of whether vehicles are typically reliable. There are sites which will give you a vehicles history for free if you know the VIN (vehicle identification number), for example [here](https://www.vehiclehistory.com/). A dataset could be created to ascertain whether vehicles typically breakdown a lot or do not require much maintenance.
