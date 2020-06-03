@@ -6,7 +6,7 @@ mathjax: true
 classes: wide
 ---
 
-Spoiler: if you want to skip to the finished product follow [this link](http://178.79.141.9/). I have not purchased a domain name and apologise that I have not set up HTTPS so your browser may complain that the site is dangerous. If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/car-purchase-help).
+If you want to skip to the finished product follow [this link](http://178.79.141.9/). I have not purchased a domain name and apologise that I have not set up HTTPS so your browser may complain that the site is dangerous. If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/car-purchase-help).
 
 ## The Problem
 
@@ -72,7 +72,14 @@ Using the already fit regressions, we can predict how the value of the car will 
 
 Again, the client tested this second form of advice and again they were satisfied. Whilst using the app they wanted to compare the information given for multiple vehicles so were opening multiple tabs containing the app. We agreed that it would nice if the app could present information for some vehicles that are similar to the one they searched for. However, this kind of information would be very hard to glean from the Craiglist dataset.
 
-Instead of trying to determine which cars are similar from the limited information in the Craiglist dataset it was decided it would be far easier to find a website which contained that information and simply scrape it. This process can be seen [here](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/similar_vehicle_scraping.ipynb).
+Instead of trying to determine which cars are similar from the limited information in the Craiglist dataset it was decided it would be far easier to find a website which contained that information and simply scrape it. This process can be seen [here](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/similar_vehicle_scraping.ipynb). The most interesting aspect of this particular scraping procedure was the need to pass some hearder information in the http-request. The site was configured to automatically deny a request made from Python. By simply passing 
+
+```python
+user_agent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
+headers = {'User-Agent':user_agent}
+```
+
+as a parameter in the urllib http request we were able to fool the website into providing the html.
 
 It took some time to find a website which provided the required information in a simple enough HTML file which could be scraped. The downside of the website used is that it is Australian so some of the vehciles in the Craigslist dataset did not exist on the site.
 
@@ -86,7 +93,7 @@ Here is a list of the techniques, technologies, concepts completing this project
 
 * Pickling (serialzing) Python code so that it can be loaded (deserialized) later
 * How to structure a Data Science project [link](https://drivendata.github.io/cookiecutter-data-science/)
-* Altering the header in a HTTP request to facilitate scraping of a site
+* Altering the header in a HTTP request to fool a site into fulfilling a request
 * The ease of formatting paths in Python 3.8+ with pathlib
 * Using type hints to make code easier to read and write
 * The lru_cache decorator
@@ -95,6 +102,8 @@ Here is a list of the techniques, technologies, concepts completing this project
 
 ## Extensions To The App
 
-The first extension that should be considered is improving the quality of the data. It contained vehicle for-sale listings from Craigslist. Anyone can go on Craiglist and list their vehicle for any price they desire so the prices are not reliable. It is possible to obtain actual, completed, car sales data but it would require payment.
+The first extension that should be considered is improving the quality of the data. It contained vehicle for-sale listings from Craigslist. Anyone can go on Craiglist and list their vehicle for any price they desire, so the prices are not reliable. It is possible to obtain actual, completed, car sales data but this data has a cost to access.
 
 An idea which was considered but not taken further was looking up vehicle maintenance histories to give the client an idea of whether vehicles are typically reliable. There are sites which will give you a vehicles history for free if you know the VIN (vehicle identification number), for example [here](https://www.vehiclehistory.com/). A dataset could be created to ascertain whether vehicles typically breakdown a lot or do not require much maintenance.
+
+Finally, as I recently been working on the fastai ["Practical Deep Learning for Coders" course"](https://www.fast.ai/) I could build the capability for a user to simply photograph the car they are interested in and the app to provide price estimates based on possible mileage readings. I have even found an appropriate dataset created by [Stanford](https://ai.stanford.edu/~jkrause/cars/car_dataset.html). There would be a challenge in matching the car identifications in the image dataset to the listings in the Craiglist dataset but this could be overcome with some string matching. Another issue may lay in the fact that the Stanford dataset appears to have been created in 2013 so may be outdated.
