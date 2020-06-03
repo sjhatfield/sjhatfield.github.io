@@ -6,13 +6,13 @@ mathjax: true
 classes: wide
 ---
 
-If you want to skip to the finished product follow [this link](http://178.79.141.9/). I have not purchased a domain name and apologise that I have not set up HTTPS so your browser may complain that the site is dangerous. If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/car-purchase-help).
+If you want to skip to the finished product follow [this link](http://178.79.141.9/). I have not purchased a domain name and apologise that I have not set up HTTPS, so your browser may complain that the site is dangerous. If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/car-purchase-help).
 
 ## The Problem
 
 Buying a used car is a tricky task, where a wrong decision can have large financial implications. There are hundreds of options of make and model available and then possibly thousands of options once a make and model have been chosen. Vehicles vary vastly in condition, age and price, and it is impossible to know you have made the best decision when purchasing a used car. The client (my spouse) is in the position of wanting to purchase a used vehicle but is unsure of what would be a good deal, which model would be the best for their needs and how long they would expect the vechicle to last once purchased. This application was developed to help the client assess how good a deal an advert for a used car is.
 
-## The Ideal Outcome
+### The Ideal Outcome
 
 The application will be a success if the client is able to input the details of a used car they have found for sale and the application is able to instantly give them feedback, as to whether the listing appears to be a good deal. Ideally, the application will be able to give them more than just a yes/no on whether the deal appears to be good. Possibly, the application will even be able to provide the same information about similar vehicles.
 
@@ -20,7 +20,7 @@ The application will be a success if the client is able to input the details of 
 
 The purpose of this project is for the writer to complete their first full, end-to-end, machine learning powered application. Therefore, the model used will **not** be a complex one, as the focus of this project is to go all the way from a problem to a functioning solution. This project follows the structure outlined in Emmanuel Ameisen's wonderful book [Building Machine Learning Powered Applications](https://www.oreilly.com/library/view/building-machine-learning/9781492045106/). Once this project has been completed the writer is going to build more applications, using more complex models. **This project will simply use a linear regression to predict the price of a vehicle and give the user advice based on that value**.
 
-## Data Collection and Analysis
+## Data Collection and Cleaning
 
 A dataset was found on [Kaggle](https://www.kaggle.com/austinreese/craigslist-carstrucks-data/), containing over 500,000 scraped Craigslist car listings in the US. Importantly, the dataset contains entries for many important features of a vehicle. Most importantly it gives, `price`, `mileage`, `year`, `manufacturer`, `model` and `condition`. This dataset has some obvious drawbacks which will be discussed later but it is large enough to gain insight from and will be used in the project. Many thanks to [Austin Reece](https://www.kaggle.com/austinreese) for providing it.
 
@@ -28,7 +28,7 @@ Of course, the first thing to do is spend some time examining the dataset and as
 
 The important conclusions of the intial exploration are that the dataset is certainly viable to gain insight from and important features have outliers that must be removed.
 
-## Data Formatting
+### Data Formatting
 
 It is good practice to treat the original dataset as immutable and use a function to format it into a usable form every time it is loaded. [Cookiecutter Data Science](https://drivendata.github.io/cookiecutter-data-science/) is a project template which was used for this project and [here](https://drivendata.github.io/cookiecutter-data-science/#data-is-immutable) they give some reasons why it is best practice to treat the data as immutable.
 
@@ -38,7 +38,7 @@ The main function `format_raw_df` takes in the Pandas dataframe loaded from the 
 
 As shown by the exploration there were outliers in important columns so these were removed. It was decided to remove any vehicle produced before 1981 and after 2019 (there were some cars from the future). Also, milage values below $$1,000$$ and above $$300,000$$ were removed, as well as price below $$\$500$$.
 
-## A Second Exploration After Formatting
+### A Second Exploration After Formatting
 
 It was important to assess the impact the formatting had on the data before building a model. If the data processing steps had altered the districution of data or removed so many points prediciton was impossible it would be a problem. Therefore, a second exploration took place after formatting in [this notebook](https://github.com/sjhatfield/car-purchase-help/blob/master/notebooks/exploration_after_cleaning.ipynb).
 
@@ -58,15 +58,19 @@ After training had taken place, 2,242 linear regressions were saved which means 
 
 ### Giving Advice
 
-Now the question was how to let the client know whether the listing they had found appeared to be a good one. When the client puts in the information say, manufacturer=Ford, model=F-150, year=2012, mileage=100,000 listed_price=22,000 we could have simply returned the predicted price and they could consider whether their listed price is greatly below the prediction but it would be better to give a judgement. 
+Now the question was how to let the client know whether the listing they had found appeared to be a good one. When the client puts in the information say, `manufacturer=Ford`, `model=F-150`, `year=2012`, `mileage=100,000`, `listed_price=22,000` we could have simply returned the predicted price and they could consider whether their listed price is greatly below the prediction but it would be better to give a judgement.
 
-To let the client know whether a listing is a good deal, a very good deal, a very bad deal etc it was decided that the listed price would be compared to all other listings for that vehicle by considering the listing residual (difference between value and predcited value on the regression line) and the average absolute residual of all datapoints that were used to fit the model. This means that if prices had a high variance for a certain make and model the listed price would have to be further below the predicted price to get the classification of a good deal. After some experimentation values between $$0.75 \times MAR$$ and $$1.5 \times MAR$$ (where $$MAR$$ is the mean absolute residual) were determined to be good deals and those below $$1.5 \times MAR$$ where a very good deal.
+To let the client know whether a listing is a good deal, a very good deal, a very bad deal etc it was decided that the listed price would be compared to all other listings for that vehicle by considering the residuals (difference between value and predcicted value on the regression line) and the average absolute residual of all datapoints that were used to fit the model. This means that if prices had a high variance for a certain make and model, the listed price would have to be further below the predicted price to get the classification of a *good deal*. After some experimentation values between $$0.75 \times MAR$$ and $$1.5 \times MAR$$ (where $$MAR$$ is the mean absolute residual) were determined to be good deals and those below $$1.5 \times MAR$$ where a very good deal. The same calculation above the predicted value determined bad deals and very bad deals.
 
-### Giving More Advice
+## A Working Application
+
+Rather than working to develop the model further and complicate it, Emmanuel's advice from the book is to get a working application running with a simple model first and iterate the process to improve it. The benefit of this approach is that the application can be shown to the client and they can guide the further development of the application to suite their needs. Therefore, at this stage the simple flask app was developed so that it could be hosted on my local machine and shown to the client. At this stage only model 1 existed on the [site](http://178.79.141.9/). Thanks to Emmanuel for the template to the [flask app](https://github.com/hundredblocks/ml-powered-applications).
+
+## Giving More Advice
 
 The client tested the application at this stage and was happy with how it functioned. They tried some vehicles they were interested in and the app was able to give sound advice. However, they wanted the app to be able to give some more information about how the car would retain its value.
 
-Using the already fit regressions, we can predict how the value of the car will decrease as it is driven further and its odometer increases. The slope of the regression tells us how much the value of the car should decrease for each mile driven so we multiplied this value by $$10,000$$ to let the user know how much the value of the car should decrease for each additional $$10,000$$ miles on the clock.
+Using the already fit regressions, we can predict how the value of the car will decrease as it is driven further and its odometer increases. The slope of the regression tells us how much the value of the car should decrease for each mile driven, so we multiplied this value by $$10,000$$ to let the user know how much the value of the car should decrease for each additional $$10,000$$ miles on the clock.
 
 ## Similar Car Information
 
@@ -100,9 +104,9 @@ Here is a list of the techniques, technologies, concepts completing this project
 * Setting up an Ubuntu remote virtual machine to act as a server
 * Deploying a flask app on a remote server using nginx, gunicorn and tmux
 
-## Extensions To The App
+## Iterative Improvements To The App
 
-The first extension that should be considered is improving the quality of the data. It contained vehicle for-sale listings from Craigslist. Anyone can go on Craiglist and list their vehicle for any price they desire, so the prices are not reliable. It is possible to obtain actual, completed, car sales data but this data has a cost to access.
+The first improvement that should be considered is increasing the quality of the data. It contained vehicle for-sale listings from Craigslist. Anyone can go on Craiglist and list their vehicle for any price they desire, so the prices are not reliable. It is possible to obtain actual, completed, car sales data but this data has a cost to access.
 
 An idea which was considered but not taken further was looking up vehicle maintenance histories to give the client an idea of whether vehicles are typically reliable. There are sites which will give you a vehicles history for free if you know the VIN (vehicle identification number), for example [here](https://www.vehiclehistory.com/). A dataset could be created to ascertain whether vehicles typically breakdown a lot or do not require much maintenance.
 
