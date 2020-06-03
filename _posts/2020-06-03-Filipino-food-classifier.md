@@ -59,7 +59,7 @@ Now that the final two layers of the neural network are trained to classify the 
 
 It is harder to choose a learning rate from this plot. It is clear that we do not want to choose a value above $$1 \times 10^-3$$ as the loss has shot upwards. To be safe a range of $$1 \times 10^{-5}$$ to $$1 \times 10^{-4}$$ was used. Despite the messy learning rate plot, the error rate did decrease with four more epochs of training to $$39.0\%$$. This process was repeated with the unfrozen model once more to achieve an error of $$37.6\%$$.
 
-For experimental purposes training was also assessed on frozen models by reloading the parameters from the model only trained over the initial four epochs. An error rate of $$$43.0/%$$ was achieved so it appears unfreezing the layers of the resnet 34 network did help.
+For experimental purposes training was also assessed on frozen models by reloading the parameters from the model only trained over the initial four epochs. An error rate of $$$43.0\%$$ was achieved so it appears unfreezing the layers of the resnet 34 network did help.
 
 ## Model Assessment
 
