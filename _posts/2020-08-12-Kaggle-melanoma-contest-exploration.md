@@ -36,13 +36,13 @@ As this is the fourth instance of the contest, there were three years of externa
 
 ## Model Evaluation
 
-Due to the significant imbalance in the target variable, the contest does not use accuracy for evaluation of performance. If accuracy were used a simple prediction of always "benign" would achieve a score of $$9\%+$$. Rather, the area under the receiver operating characteristic curve is used. That is quite the mouth-full so $$AUC-ROC$$ is the shortened version.
+Due to the significant imbalance in the target variable, the contest does not use accuracy for evaluation of performance. If accuracy were used a simple prediction of always "benign" would achieve a score of $$98\%+$$. Rather, the area under the receiver operating characteristic curve is used. That is quite the mouth-full so AUC-ROC is the shortened version.
 
 Firstly, the ROC curve has false positive rate on the $$x$$-axis and true positive rate on the $$y$$-axis. The curve is given by varying the threshold to determine whether a prediction is negative or positive. For each test case the model to be evaluated will produce a value between $$0$$ and $$1$$ representing the probability of a test case being positive (malignant). The threshold determines for what probabilities we consider this to be a positive or negative prediction. Of course, often a threshold of $$0.5$$ will be chosen but $$0.5$$ does not have to be used.
 
 A perfect classifier's ROC curve would be right angled, going from the origin to the top-left corner of the plot and then horizontally across to the top-right corner. This is because a perfect classifier would have probability $$0$$ for all negative cases and probability 1 for all positives. This would give a false positive rate of $$0$$ and true positive rate of $$1$$ for all thresholds and this curve would have an area of $$1$$ under it. Any non-perfect classifier will have an ROC curve with area less than below.
 
-In this contest, the top submissions on the public leaderboard have $$AUC-ROC > 0.97$$, so accurate predicitons are at least possible. Though many of these submissions will be overfitting the test set. Kaggle does not assess predicitons on the full test set and once the competition is over, will assess contestants chosen 3 submissions on the full test set, so those overfit on the assessed test data should fall on the leaderboard.
+In this contest, the top submissions on the public leaderboard have AUC-ROC $$> 0.97$$, so accurate predicitons are at least possible. Though many of these submissions will be overfitting the test set. Kaggle does not assess predicitons on the full test set and once the competition is over, will assess contestants chosen 3 submissions on the full test set, so those overfit on the assessed test data should fall on the leaderboard.
 
 ## Exploration
 
@@ -60,15 +60,17 @@ Now let's switch out attention to the distribution of ages of patients across th
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/age_sex_dist.jpeg" alt="Bar plot of approximate patient age split by sex.">
 
-We see a trend that for the ages of $$25$$ to $$40$$, there are more females in the dataset and for older patients there are more males (exceptions: $$55$$, $$90$$). Possibly there are more females in the younger ages because they are seeing a gynacologist (who may notice lesions) and males are seeing no doctor in that period? There is a huge jump in males at the 45 year mark. Maybe this is when men have their first physical exam and their doctor notices moles that should be checked? I am not an expert on health, especially in the US.
+We see a trend that for the ages of 25 to 40, there are more females in the dataset and for older patients there are more males (exceptions: 55, 90). Possibly there are more females in the younger ages because they are seeing a gynacologist (who may notice lesions) and males are seeing no doctor in that period? There is a huge jump in males at the 45 year mark. Maybe this is when men have their first physical exam and their doctor notices moles that should be checked? I am not an expert on health, especially in the US.
 
 A very important thing to note in the data is that patients appear more than once in the dataset. This is important because when we split the training data into a train/validation split we should try to keep patients either in one or the other. This prevents leakage and would artifially inflate the validation performance by allowing the model to be trained on a patient who is also used for assessment in the validation set.
 
-Finally, let's take a look at some sample images of the lesions. Here are 20 random images of benign lesions and then 20 malignant.
+Finally, let's take a look at some sample images of the lesions. Here are 20 random images of benign lesions.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/benign_sample.png" alt="Twenty random images of benign lesions.">
+
+And now here are 20 malignant.
 %
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-me1634lanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
 
 From this small sample it would seem malignant lesions may be darker and have more abnormal shaping and texture.
 
@@ -77,7 +79,7 @@ From this small sample it would seem malignant lesions may be darker and have mo
 * The malignant class makes up only $$1.76\%$$ of the data
 * There are more males than females in both training and testing data. The proportion of males is higher in the test data. This is important because:
 * Males make up more of the malignant data points and seem to suffer from skin cancer melanoma more often in the population
-* Age is distributed fairly normally with a mean around $$49$$ and standard deviation of $$14$$
+* Age is distributed fairly normally with a mean around 49 and standard deviation of 14
 * There is missing data in the *sex*, *age_approx* and *anatom_site_general_challenge* columns though they are few in number
 * Images of patients contain haris, black spots, are sometimes circular, are possibility highlighted with pen or ink and contain MM rulers. In other words, they are messy!
 * There are multiple images of the same patients in the training data
