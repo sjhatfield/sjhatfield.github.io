@@ -50,7 +50,7 @@ Please see [this notebook](https://github.com/sjhatfield/kaggle-melanoma-2020/bl
 
 The most important factor to note of the data in this competition is the extreme imbalance in the target variable. As can be seen below, there are far more benign data entries, compared to malignant. In fact, only $$1.76\%$$ of the data is malignant. This is of course good in reality, as a low number of people suspected of skin cancer are malignant but it complicates training.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/target_distribution.jpeg" width="500" height="500" alt="Bar plot showing the number of benign and malignant data entries.">
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/target_distribution.jpeg" width="600" height="600" alt="Bar plot showing the number of benign and malignant data entries.">
 
 Another interesting imbalance in the distribution of variables is that there are more males in both the training and test data. Furthermore, they make up a higher proportion of the malignant data. In the training set $$51.56\%$$ of the data is male, whereas of the malignant cases, $$62.33\%$$ are male. After some research it seems that skin cancer melanoma are more common amongst males, at least in the United States. If we look at males as a whole, $$2.13\%$$ of them are malignant, whereas for females, the proportion malignant is $$1.38\%$$.
 
@@ -67,7 +67,7 @@ A very important thing to note in the data is that patients appear more than onc
 Finally, let's take a look at some sample images of the lesions. Here are 20 random images of benign lesions and then 20 malignant.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/benign_sample.png" alt="Twenty random images of benign lesions.">
-
+%
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
 
 From this small sample it would seem malignant lesions may be darker and have more abnormal shaping and texture.
