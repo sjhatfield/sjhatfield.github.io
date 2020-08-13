@@ -72,7 +72,9 @@ And now here are 20 malignant.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
 
-From this small sample it would seem malignant lesions may be darker and have more abnormal shaping and texture.
+From this small sample it would seem malignant lesions may be darker and have more abnormal shaping and texture. Sources online indicate this something that dermatologists look for, however, the images below which are all malignant from the same patient show that darkness and irregularity are not necessarily the be-all and end-all.
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/malignant_same_patient.png" alt="Eight malignant lesions from the same patient.">
 
 ## Conclusions of the Exploration
 
