@@ -48,9 +48,9 @@ In this contest, the top submissions on the public leaderboard have $$AUC-ROC > 
 
 Please see [this notebook](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/exploration.ipynb) for the full exploration. Limited results will be presented here.
 
-The most important feature of the data in this competition is the extreme imbalance in the target variable. As can be seen below, there are far more benign data entries, compared to malignant. In fact, only 1.76% of the data is malignant. This is of course good in reality, as a low number of people suspected of skin cancer are malignant but it complicates training.
+The most important factor to note of the data in this competition is the extreme imbalance in the target variable. As can be seen below, there are far more benign data entries, compared to malignant. In fact, only 1.76% of the data is malignant. This is of course good in reality, as a low number of people suspected of skin cancer are malignant but it complicates training.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/target_distribution.jpeg" alt="Bar plot showing the number of benign and malignant data entries.">
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/target_distribution.jpeg" width="400" height="40" alt="Bar plot showing the number of benign and malignant data entries.">
 
 Another interesting imbalance in the distribution of variables is that there are more males in both the training and test data. Furthermore, they make up a higher proportion of the malignant data. In the training set 51.56% of the data is male, whereas of the malignant cases, 62.33% are male. After some research it seems that skin cancer melanoma are more common amongst males, at least in the United States. If we look at males as a whole, 2.13% of them are malignant, whereas for females, the proportion malignant is 1.38%.
 
