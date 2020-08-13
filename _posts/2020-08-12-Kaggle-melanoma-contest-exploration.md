@@ -69,8 +69,8 @@ Finally, let's take a look at some sample images of the lesions. Here are 20 ran
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/benign_sample.png" alt="Twenty random images of benign lesions.">
 
 And now here are 20 malignant.
-%
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-me1634lanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/malignant_sample.png" alt="Twenty random images of malignant images.">
 
 From this small sample it would seem malignant lesions may be darker and have more abnormal shaping and texture.
 
