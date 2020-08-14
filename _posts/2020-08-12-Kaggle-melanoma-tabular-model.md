@@ -1,7 +1,7 @@
 ---
 title: "Melanoma Prediction Kaggle Contest - Part 2: Predictions From Patient Metadata"
 date: 2020-08-12
-tags: [kaggle, competition, computer vision, deep lerning]
+tags: [kaggle, competition, gradient boosted trees, xgboost, smote, oversampling]
 mathjax: true
 classes: wide
 ---
@@ -12,7 +12,7 @@ Part 1 where I introduce the contest and explore the data can be found [here](ht
 
 ## Idea
 
-Before spending time working with the image data, a model was developed to make predicitoins only using the tabular data (metadata). It is not expected that this will perform particularly well but the tabular model can be emsembled with an image model to possibly give a little boost in the score. Plus these models are quick to train and give an opportunity to develop more on an intuition about the dataset.
+Before spending time working with the image data, a model is developed to make predicitoins only using the tabular data (metadata). It is not expected that this will perform particularly well but the tabular model can be emsembled with an image model to possibly give a little boost in the score. Plus these models are quick to train and give an opportunity to develop more on an intuition about the dataset.
 
 ## Data Preparation
 
@@ -140,14 +140,19 @@ Another great feature of gradient boosted trees, is that we may examine which va
 The final model had maximum depth $$1$$, so the this bar plot shows which of the $$142$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
 
 Here are some example trees:
-
+<div class="row">
+<div class="column">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" alt="Tree number 10.">
-
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" alt="Tree number 29.">
+</div>
 
+<div class="column">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" alt="Tree number 99.">
-
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" alt="Tree number 138.">
+</div>
+</div>
+
+
 
 The leaf values at the bottom will be summed across all $$142$$ trees and then transformed into a probability using a sigmoid function. The first image indicates that if a patient is below 72.5 years old then then this makes it more likely the patient will be predicted as benign.
 
