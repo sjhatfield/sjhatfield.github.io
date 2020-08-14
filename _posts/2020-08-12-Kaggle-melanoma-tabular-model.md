@@ -135,22 +135,17 @@ It took 7.3 minutes to train this model and its score on the validation data was
 
 Another great feature of gradient boosted trees, is that we may examine which variables were used most often to perform feature selection. Here is a plot of feature importance:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/feature_importance.png" class="center" alt="Feature importance bar chart for the final tabular model.">
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/feature_importance.png" class="center" alt="Feature importance bar chart for the final tabular model."><center>
 
 The final model had maximum depth $$1$$, so the this bar plot shows which of the $$142$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
 
 Here are some example trees:
 
-<div class="row">
-    <div class="column">
-        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" alt="Tree number 10.">
-        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" alt="Tree number 29.">
-    </div>
-    <div class="column">
-        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" alt="Tree number 99.">
-        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" alt="Tree number 13.">
-    </div>
-</div>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" class="center" alt="Tree number 10."></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" class="center" alt="Tree number 29."></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" class="center" alt="Tree number 99."></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" class="center" alt="Tree number 13."></center>
+
 
 The leaf values at the bottom will be summed across all $$142$$ trees and then transformed into a probability using a sigmoid function. The first image indicates that if a patient is below 72.5 years old then then this makes it more likely the patient will be predicted as benign.
 
