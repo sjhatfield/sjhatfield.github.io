@@ -125,7 +125,7 @@ In a final effort to squeeze some increased performance out of the classifier an
 * Maximum depth of tree 2 RandomInt(low=1, high=3)
 * Number of estimators 100 RandomInt(low=50, high=150)
 
-It should be fairly clear why the uniform and random integer distributuions were used. The gamma distribution was chosen for eta and gamma, as these variables are continuous and may take values in the range `$$[0, \inf)$$` which is the same as the gamma distributuion. It looks like a skewed normal distribution which cannot go negative which is appropriate for these varialbes. The mean of a gamma distribution is shape `$$\times$$` scale. 
+It should be fairly clear why the uniform and random integer distributuions were used. The gamma distribution was chosen for eta and gamma, as these variables are continuous and may take values in the range $$[0, \infty)$$ which is the same as the gamma distributuion. It looks like a skewed normal distribution which cannot go negative which is appropriate for these varialbes. The mean of a gamma distribution is shape multipled by scale. 
 
 For example, a random sample of $$25$$ values from Gamma(shape=2, scale=2) gave: 4.16200782, 4.78013484, 2.78268383, 3.52807528, 7.60847632, 8.69564004, 6.1258422 , 2.89771016, 2.10044363, 0.44427182, 5.0764685 , 3.87984299, 1.72199083, 4.773591  , 3.51366612, 3.63235669, 5.74539046, 2.63842483, 3.32101361, 0.69189948, 2.02039114, 9.40518265, 7.79320054, 2.70690933, 6.23665766.
 
