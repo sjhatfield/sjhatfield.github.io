@@ -1,5 +1,5 @@
 ---
-title: "Melanoma Prediction Kaggle Contest - Part 1: Contest and Exploration"
+title: "Melanoma Prediction Kaggle Contest - Part 2: Predictions From Patient Metadata"
 date: 2020-08-12
 tags: [kaggle, competition, computer vision, deep lerning]
 mathjax: true
