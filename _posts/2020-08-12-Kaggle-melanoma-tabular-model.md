@@ -140,10 +140,17 @@ Another great feature of gradient boosted trees, is that we may examine which va
 The final model had maximum depth $$1$$, so the this bar plot shows which of the $$142$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
 
 Here are some example trees:
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" class="center" alt="Tree number 10.">
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" class="center" alt="Tree number 29.">
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" class="center" alt="Tree number 99.">
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" class="center" alt="Tree number 138.">
+
+<div class="row">
+    <div class="column">
+        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" alt="Tree number 10.">
+        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" alt="Tree number 29.">
+    </div>
+    <div class="column">
+        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" alt="Tree number 99.">
+        <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" alt="Tree number 13.">
+    </div>
+</div>
 
 The leaf values at the bottom will be summed across all $$142$$ trees and then transformed into a probability using a sigmoid function. The first image indicates that if a patient is below 72.5 years old then then this makes it more likely the patient will be predicted as benign.
 
