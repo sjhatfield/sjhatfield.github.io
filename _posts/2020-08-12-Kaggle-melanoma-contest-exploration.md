@@ -85,4 +85,3 @@ From this small sample it would seem malignant lesions may be darker and have mo
 * There is missing data in the *sex*, *age_approx* and *anatom_site_general_challenge* columns though they are few in number
 * Images of patients contain haris, black spots, are sometimes circular, are possibility highlighted with pen or ink and contain MM rulers. In other words, they are messy!
 * There are multiple images of the same patients in the training data
-
