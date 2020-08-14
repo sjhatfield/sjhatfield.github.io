@@ -6,7 +6,8 @@ mathjax: true
 classes: wide
 ---
 
-If you want to skip to the finished product follow [this link](https://filipino-food-classifier.onrender.com/). If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/filipino-food-classifier). This is a fun, not particularly useful, application I quickly developed and deployed whilst working on the fastai course "Practical Deep Learning for Coders". Believe it or not, this was developed after only completing two lessons.
+[//]: # "If you want to skip to the finished product follow [this link](https://filipino-food-classifier.onrender.com/)."
+If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/filipino-food-classifier). This is a fun, not particularly useful, application I quickly developed and deployed whilst working on the fastai course "Practical Deep Learning for Coders". Believe it or not, this was developed after only completing two lessons.
 
 ## The Problem
 
