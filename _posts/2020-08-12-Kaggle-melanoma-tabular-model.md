@@ -135,22 +135,15 @@ It took 7.3 minutes to train this model and its score on the validation data was
 
 Another great feature of gradient boosted trees, is that we may examine which variables were used most often to perform feature selection. Here is a plot of feature importance:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/feature_importance.png" alt="Feature importance bar chart for the final tabular model.">
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/feature_importance.png" class="center" alt="Feature importance bar chart for the final tabular model.">
 
 The final model had maximum depth $$1$$, so the this bar plot shows which of the $$142$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
 
 Here are some example trees:
-<div class="row">
-<div class="column">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" alt="Tree number 10.">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" alt="Tree number 29.">
-</div>
-
-<div class="column">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" alt="Tree number 99.">
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" alt="Tree number 138.">
-</div>
-</div>
 
 
 
