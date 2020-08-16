@@ -149,6 +149,12 @@ Here are some example trees:
 
 The leaf values at the bottom will be summed across all $$142$$ trees and then transformed into a probability using a sigmoid function. The first image indicates that if a patient is below 72.5 years old then then this makes it more likely the patient will be predicted as benign.
 
+## ROC Curve
+
+Below we see the ROC curve which is found over the whole training set. The data used contains all training and validation so we should not rely on this curve for a detailed analysis of performance of the model. However, I wanted to show this one because it has an interesting feature. Notice how the curve asymptotes very close to a horizontal line for large values on the $$x$$-axis and it asymptotes not as close to the vertical for low values on the $$x$$-axis. This makes sense for our data as we have much less positive data than negative. So it is easy to achieve a high true positive rate by putting the threshold very high so only points that the model is extremely sure of being malignant are classed as so. However, it is hard to keep the false positive rate low because there are so few positives the model is sure to misclassify negatives as positives for low thresholds.
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/roc_cruve.png" class="center" alt="Plot of the ROC curve over the full training set."></center>
+
 ## What Have I Learnt?
 
 Here is a list of the techniques, technologies, concepts completing this project has introduced to me for the first time.
