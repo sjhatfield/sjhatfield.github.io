@@ -1,5 +1,5 @@
 ---
-title: "Melanoma Prediction Kaggle Contest - Part 2: Only Using The Patient Metadata"
+title: "Melanoma Prediction Kaggle Contest - Part 2: Using Metadata"
 date: 2020-08-12
 tags: [kaggle, competition, gradient boosted trees, xgboost, smote, oversampling]
 mathjax: true
@@ -162,4 +162,4 @@ Here is a list of the techniques, technologies, concepts completing this project
 * Randomized grid search over probability distributions in scikit-learn
 * Using an XGBoost classifier to perform feature selection
 * The suprising ability for solely tabular patient data to predict melanoma
-* Different sampling techniques using the imblean library
+* Different sampling techniques using the imblearn library
