@@ -1,5 +1,5 @@
 ---
-title: "Melanoma Prediction Kaggle Contest - Part 2: Predictions From Patient Metadata"
+title: "Melanoma Prediction Kaggle Contest - Part 2: Only Using The Patient Metadata"
 date: 2020-08-12
 tags: [kaggle, competition, gradient boosted trees, xgboost, smote, oversampling]
 mathjax: true
