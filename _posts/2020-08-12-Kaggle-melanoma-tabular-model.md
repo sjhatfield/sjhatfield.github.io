@@ -70,7 +70,7 @@ grid_randoversamp = RandomizedSearchCV(estimator=model_randoversamp,
 
 This took 10.1 minutes to train on my local machine and the best performing set of parameters achieved a validation AUC-ROC of $$0.83$$, which was better than I expected. This model had a sampling strategy of $$0.3$$, meaning the malignant cases were resampled to bring their proportion up to $$30\%$$ of the training data. The eta parameter used was $$0.1$$ and this is a regularization constraint, for which larger values shrink the weights of new features added to trees. The gamma parameter chosen was 4, which is the minimum loss decrease, for a further partition to be made in a decision tree. The maximum depth of the trees chosen was 2 and this is the maximum number of decisions until a classification is made. Finally, the number of decision trees used was 100.
 
-When this classifier was used on the test data, the classifier achieved a score of $$0.7981$$ on the public Kaggle leaderboard. Impressive for a purely tabular model in my opinion.
+When this classifier was used on the test data, the classifier achieved a score of $$0.7981$$ on the public Kaggle leaderboard. Impressive for a purely tabular model in my opinion. Usually, it is a big no-no to assess a model on the test set before making the final selection. However, this is a Kaggle contest and it's nice to see how a model does on the leaderboard. More tabular models will be trained and really we should choose the best based on their performance on the cross-validated dataset before making predictions once on the test data.
 
 ## A Different Sampling Strategy (SMOTE)
 
