@@ -53,8 +53,14 @@ params_randoversamp = {
     'classification__eta': [0.0001, 0.001, 0.01, 0.1, 1],
     'classification__gamma': [0, 1, 2, 3, 4, 5],
     'classification__max_depth': [x for x in range(1, 11)],
-    'classification__n_estimators': [100, 300, 500, 700, 900]
+    'classification__n_estimators': [50, 100, 150, 200]
 }
+
+cv_iterator_int = []
+skf = KFold(n_splits=5, shuffle=True, random_state=SEED)
+for i, (idxT,idxV) in enumerate(skf.split(np.arange(15))):
+    cv_iterator_int.append((train_internal.tfrecord.isin(idxT), 
+                        train_internal.tfrecord.isin(idxV)))
 
 grid_randoversamp = RandomizedSearchCV(estimator=model_randoversamp, 
                           param_distributions=params_randoversamp, 
@@ -68,7 +74,7 @@ grid_randoversamp = RandomizedSearchCV(estimator=model_randoversamp,
 
 ### Results
 
-This took 10.1 minutes to train on my local machine and the best performing set of parameters achieved a validation AUC-ROC of $$0.83$$, which was better than I expected. This model had a sampling strategy of $$0.3$$, meaning the malignant cases were resampled to bring their proportion up to $$30\%$$ of the training data. The eta parameter used was $$0.1$$ and this is a regularization constraint, for which larger values shrink the weights of new features added to trees. The gamma parameter chosen was 4, which is the minimum loss decrease, for a further partition to be made in a decision tree. The maximum depth of the trees chosen was 2 and this is the maximum number of decisions until a classification is made. Finally, the number of decision trees used was 100.
+This took 11.2 minutes to train on my local machine and the best performing set of parameters achieved a validation AUC-ROC of $$0.83$$, which was better than I expected. This model had a sampling strategy of $$0.3$$, meaning the malignant cases were resampled to bring their proportion up to $$30\%$$ of the training data. The eta parameter used was $$0.1$$ and this is a regularization constraint, for which larger values shrink the weights of new features added to trees. The gamma parameter chosen was 4, which is the minimum loss decrease, for a further partition to be made in a decision tree. The maximum depth of the trees chosen was 2 and this is the maximum number of decisions until a classification is made. Finally, the number of decision trees used was 100.
 
 When this classifier was used on the test data, the classifier achieved a score of $$0.7981$$ on the public Kaggle leaderboard. Impressive for a purely tabular model in my opinion. Usually, it is a big no-no to assess a model on the test set before making the final selection. However, this is a Kaggle contest and it's nice to see how a model does on the leaderboard. More tabular models will be trained and really we should choose the best based on their performance on the cross-validated dataset before making predictions once on the test data.
 
@@ -95,7 +101,7 @@ SMOTE stands for synthetic minority oversampling technique. This technique rando
 
 An obvious issue is that when the minority and majority classes overlap significantly (are not separable) then these new synthetic datapoints may not be representative of the minority class. A second issue is the computation required to generate new samples. Finding $$k$$-nearest neighbors can be time exhaustive so this sampling technique is expected to take longer than random over-sampling.
 
-The randomized search took longer this time as SMOTE sampling is more computationally expensive and as it happens, had a lower best AUC-ROC score of $$0.8219$$ and $$0.7900$$ on the Kaggle public leaderboard.
+The randomized search took longer this time as SMOTE sampling is more computationally expensive and as it happens, had a lower best AUC-ROC score of $$0.8218$$ and $$0.7664$$ on the Kaggle public leaderboard.
 
 ## More Data
 
@@ -116,7 +122,7 @@ for i, (idxT,idxV) in enumerate(skf.split(np.arange(15))):
 
 Chris Deotte who put together the datasets found some patient entries in both the 2019 and 2020 datasets. He highlighted these with a `-1` in the `tfrecord` column. The above code ensures these are not used for training.
 
-The model with external data performed slightly worse than the model using just the internal data.
+The model with external data performed slightly worse than the model using just the internal data. Due to this model taking longer (17.2 minutes) than just the internal data but not giving an improved performance I decided to stick to just the internal data.
 
 ## Parameter Refining
 
@@ -124,15 +130,13 @@ In a final effort to squeeze some increased performance out of the classifier an
 
 * Sampling proportion 0.3 Uniform(low=0.1, high=0.5)
 * Eta (regularization) 0.1 Gamma(shape=2, scale=0.05)
-* Gamma (minimum loss) 4 Gamma(shape=2, scale=2)
+* Gamma (minimum loss) 4 Gamma(shape=2, scale=1)
 * Maximum depth of tree 2 RandomInt(low=1, high=3)
 * Number of estimators 100 RandomInt(low=50, high=150)
 
 It should be fairly clear why the uniform and random integer distributions were used. The gamma distribution was chosen for eta and gamma, as these variables are continuous and may take values in the range $$[0, \infty)$$ which is the same as the gamma distributuion. It looks like a skewed normal distribution which cannot go negative which is appropriate for these variables. The mean of a gamma distribution is shape $$\times$$ scale.
 
-For example, a random sample of $$25$$ values from Gamma(shape=2, scale=2) gave: 4.16200782, 4.78013484, 2.78268383, 3.52807528, 7.60847632, 8.69564004, 6.1258422 , 2.89771016, 2.10044363, 0.44427182, 5.0764685 , 3.87984299, 1.72199083, 4.773591  , 3.51366612, 3.63235669, 5.74539046, 2.63842483, 3.32101361, 0.69189948, 2.02039114, 9.40518265, 7.79320054, 2.70690933, 6.23665766.
-
-It took 7.3 minutes to train this model and its score on the validation data was $$0.8310$$ which suggests better performance. Indeed this model did better on the Kaggle leaderboard scoring $$0.8176$$.
+It took 13.4 minutes to train this model, looking at 200 possible combinations of parameters and its score on the validation data was $$0.8313$$ which suggests better performance. Indeed this model did better on the Kaggle leaderboard scoring $$0.8176$$.
 
 ## Insight From The Model
 
@@ -140,7 +144,7 @@ Another great feature of gradient boosted trees, is that we may examine which va
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/feature_importance.png" class="center" alt="Feature importance bar chart for the final tabular model."></center>
 
-The final model had maximum depth $$1$$, so the this bar plot shows which of the $$142$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
+The final model had maximum depth $$1$$, so the this bar plot shows which of the $$192$$ estimators was based on each variable. The height and width of the original full resolution image were the best predictors, with age being the third best.
 
 Here are some example trees:
 
