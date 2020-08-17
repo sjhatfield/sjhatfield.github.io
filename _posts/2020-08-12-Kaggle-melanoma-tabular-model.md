@@ -16,7 +16,7 @@ Before spending time working with the image data, a model is developed to make p
 
 ## Data Preparation
 
-The columns that may be used for prediciton with their type are:
+The columns that may be used for prediction with their type are:
 
 * Sex (2 categories)
 * Approximate age (numerical)
@@ -24,7 +24,7 @@ The columns that may be used for prediciton with their type are:
 * Width of full resolution image (numerical)
 * Height of full resolution image (numerical)
 
-With this kind of data a gradient boosting method for classification can be a good bet. The most popular library for fitting these kind of models is [XGBoost](https://xgboost.readthedocs.io). The summary of gradient boosting is that they train many weak classifiers, most often decision trees, and then ensemble them together for better performance. A decision tree takes the form of a series of yes/no questions which result in a classification. See below for an example from the XGBoost package [website](https://xgboost.readthedocs.io/en/latest/tutorials/model.html).
+With this kind of data a gradient boosting method for classification can be a good bet. The most popular library for fitting these kind of models is [XGBoost](https://xgboost.readthedocs.io). The summary of gradient boosting is that they train many weak classifiers, most often decision trees, and then ensemble them together for better performance. A decision tree takes the form of a series of yes/no questions which result in a classification. See below for a hypothetical example for predicting whether someone will like a video game, from the XGBoost [website](https://xgboost.readthedocs.io/en/latest/tutorials/model.html).
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/decision_tree.png" alt="An example of two decision trees.">
 
@@ -32,7 +32,7 @@ This kind of model requires numerical variables so we must encode the categorica
 
 ## Model Validation
 
-As noted in the previous post, many patients had multiple entries in the training set. It was essential to make sure that patients did not exist in both training data and validation data. Fortunately, a contestant on Kaggle, [Chris Deotte](http://www.ccom.ucsd.edu/~cdeotte/), graciously provided data sets where not only had he provided cross-validation folds splitting the patients but also made sure that each fold had the same proportion of malignant cases and balanced patient counts. This is referred to as **triple stratified, leak-free** k-fold cross validation. It is the gold-standard of cross-validation.
+As noted in the previous post, many patients had multiple entries in the training set. It was essential to make sure that patients did not exist in both training data and validation data. Fortunately, a contestant on Kaggle, [Chris Deotte](http://www.ccom.ucsd.edu/~cdeotte/), graciously provided datasets where not only had he provided cross-validation folds splitting the patients but also made sure that each fold had the same proportion of malignant cases and balanced patient counts. This is referred to as **triple stratified, leak-free** k-fold cross validation. It is the gold-standard of cross-validation.
 
 In the [notebook](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/tabular.ipynb), this can be seen in the extra column in all dataframes called `tfrecord`. It is an integer from $$0$$ to $$15$$ so that folds may be created by randomly splitting those integers into 1, 3 or 5 non-intersecting subsets.
 
@@ -40,7 +40,7 @@ In the [notebook](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master
 
 As mentioned in the previous post, there is extreme imbalance in the data where only $$1.76\%$$ of data entries are malignant. To combat this a sampling strategy must be employed. To begin with, random over-sampling was used from the *imblearn* [package](https://imbalanced-learn.readthedocs.io/en/stable/api.html). This strategy simply resamples the minority class until it makes up a designated proportion of training data.
 
-To search for appropraite parameters for the sampler and model, scikit-learns RandomizedSearchCV was used so that $$100$$ different combinations of parameters could be assessed using cross-validation. Here is the code creating the pipeline, parameters to be searched and the randomized search grid.
+To search for appropriate parameters for the sampler and model, scikit-learns RandomizedSearchCV was used so that $$100$$ different combinations of parameters could be assessed using cross-validation. Here is the code creating the pipeline, parameters to be searched and the randomized search grid.
 
 ```python
 model_randoversamp = Pipeline([
@@ -53,7 +53,7 @@ params_randoversamp = {
     'classification__eta': [0.0001, 0.001, 0.01, 0.1, 1],
     'classification__gamma': [0, 1, 2, 3, 4, 5],
     'classification__max_depth': [x for x in range(1, 11)],
-    'classification__num_estimators': [100, 300, 500, 700, 900]
+    'classification__n_estimators': [100, 300, 500, 700, 900]
 }
 
 grid_randoversamp = RandomizedSearchCV(estimator=model_randoversamp, 
@@ -68,7 +68,7 @@ grid_randoversamp = RandomizedSearchCV(estimator=model_randoversamp,
 
 ### Results
 
-This took 10.1 minutes to train on my local machine and the best performing set of parameters achieved a validation AUC-ROC of $$0.83$$, which was better than I expected. This model had a sampling strategy of $$0.3$$, meaning the malignant cases were resampled to bring their proporiton up to $$30\%$$ of the training data. The eta parameter used was $$0.1$$ and this is a regularization constraint, for which larger values shrink the weights of new features added to trees. The gamma parameter chosen was 4, which is the minimum loss decrease, for a further partition to be made in a decision tree. The maximum depth of the trees chosen was 2 and this is the maximum number of decisions until a classification is made. Finally, the number of decision trees used was 100.
+This took 10.1 minutes to train on my local machine and the best performing set of parameters achieved a validation AUC-ROC of $$0.83$$, which was better than I expected. This model had a sampling strategy of $$0.3$$, meaning the malignant cases were resampled to bring their proportion up to $$30\%$$ of the training data. The eta parameter used was $$0.1$$ and this is a regularization constraint, for which larger values shrink the weights of new features added to trees. The gamma parameter chosen was 4, which is the minimum loss decrease, for a further partition to be made in a decision tree. The maximum depth of the trees chosen was 2 and this is the maximum number of decisions until a classification is made. Finally, the number of decision trees used was 100.
 
 When this classifier was used on the test data, the classifier achieved a score of $$0.7981$$ on the public Kaggle leaderboard. Impressive for a purely tabular model in my opinion.
 
@@ -86,7 +86,8 @@ params_smote = {
     'sampler__k_neighbors': [1, 3, 5, 7],
     'classification__eta': [0.0001, 0.001, 0.01, 0.1, 1, 10],
     'classification__gamma': [0, 1, 2, 3, 4, 5],
-    'classification__max_depth': [1, 2, 3, 4, 5, 6]
+    'classification__max_depth': [1, 2, 3, 4, 5, 6],
+    'classification__n_estimators': [100, 300, 500, 700, 900]
 }
 ```
 
@@ -113,7 +114,7 @@ for i, (idxT,idxV) in enumerate(skf.split(np.arange(15))):
                         tf.isin(idxV)))
 ```
 
-Chris Deotte who put together the datasets found some patient entries in bot hthe 2019 and 2020 data sets. He highlighted these with a `-1` in the `tfrecord` column. The above code ensures these are not used for training.
+Chris Deotte who put together the datasets found some patient entries in both the 2019 and 2020 datasets. He highlighted these with a `-1` in the `tfrecord` column. The above code ensures these are not used for training.
 
 The model with external data performed slightly worse than the model using just the internal data.
 
@@ -127,7 +128,7 @@ In a final effort to squeeze some increased performance out of the classifier an
 * Maximum depth of tree 2 RandomInt(low=1, high=3)
 * Number of estimators 100 RandomInt(low=50, high=150)
 
-It should be fairly clear why the uniform and random integer distributuions were used. The gamma distribution was chosen for eta and gamma, as these variables are continuous and may take values in the range $$[0, \infty)$$ which is the same as the gamma distributuion. It looks like a skewed normal distribution which cannot go negative which is appropriate for these varialbes. The mean of a gamma distribution is shape $$\times$$ scale.
+It should be fairly clear why the uniform and random integer distributions were used. The gamma distribution was chosen for eta and gamma, as these variables are continuous and may take values in the range $$[0, \infty)$$ which is the same as the gamma distributuion. It looks like a skewed normal distribution which cannot go negative which is appropriate for these variables. The mean of a gamma distribution is shape $$\times$$ scale.
 
 For example, a random sample of $$25$$ values from Gamma(shape=2, scale=2) gave: 4.16200782, 4.78013484, 2.78268383, 3.52807528, 7.60847632, 8.69564004, 6.1258422 , 2.89771016, 2.10044363, 0.44427182, 5.0764685 , 3.87984299, 1.72199083, 4.773591  , 3.51366612, 3.63235669, 5.74539046, 2.63842483, 3.32101361, 0.69189948, 2.02039114, 9.40518265, 7.79320054, 2.70690933, 6.23665766.
 
@@ -162,5 +163,5 @@ Here is a list of the techniques, technologies, concepts completing this project
 
 * Randomized grid search over probability distributions in scikit-learn
 * Using an XGBoost classifier to perform feature selection
-* The suprising ability for solely tabular patient data to predict melanoma
+* The surprising ability for solely tabular patient data to predict melanoma
 * Different sampling techniques using the imblearn library
