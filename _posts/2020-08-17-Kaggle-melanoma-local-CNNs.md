@@ -41,7 +41,7 @@ The code for my image augmentations can be found [here](https://github.com/sjhat
 
 The images to be classified are photos of skin lesions taken directly from above. So most augmentations make sense as there is no fixed perspective.
 
-The next thing to decide is how many of these to be applied and what parameters to be used with them. For example, by how many degrees do we rotate. I followed the advice from the paper [UniformAugment: A Search-free ProbabilisticData Augmentation Approach](https://arxiv.org/abs/2003.14348v1). The key takeaway from this paper is that, "a uniform sampling over the continuous space of augmentation transformations is sufficient to train highly effective models". With this is mind, to get an image from the training data to be passed to the network, a random sample of two augmentations was chosen from all that are possible above. Then each was performed uniformly at random with a magnitude randomly chosen from their range of possible magnitudes. Here is the code that explains how this happens:
+The next thing to decide is how many of these to be applied and what parameters to be used with them. For example, by how many degrees do we rotate. I followed the advice from the paper [UniformAugment: A Search-free ProbabilisticData Augmentation Approach](https://arxiv.org/abs/2003.14348v1). The key takeaway from this paper is that, "a uniform sampling over the continuous space of augmentation transformations is sufficient to train highly effective models". With this is mind, to get an image from the training data to be passed to the network, a random sample of two augmentations was chosen from all that are possible above. Then each was performed uniformly at random with a magnitude randomly chosen from their range of possible magnitudes. Here is the code that explains how this happens exactly:
 
 ```python
 def __call__(self, img: PIL.Image) -> PIL.Image:
@@ -62,15 +62,26 @@ def __call__(self, img: PIL.Image) -> PIL.Image:
         return img
 ```
 
-To show this in action here is a sample of 20 images with their augmentations. Remember some of these will have no augmentation at all. These are the not the exact form of the images that are passed to the model as they have not been normalized according to the ImageNet database that most pre-trained neural networks are trained on. If I was to show normalized images they would be bright colors.
+To show this in action, here is a sample of 20 images with their augmentations. Remember some of these will have no augmentation at all. These are the not the exact form of the images that are passed to the model, as they have not been normalized according to the ImageNet databases mean and standard deviation. Almost all pre-trained neural networks are trained on this dataset so images should be normalized according to the same summary statistics. If I was to show normalized images they would be bright, garish colors.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/augmentation_example.png" class="center" alt="20 example augmented images to be passed to the model."></center>
 
-We can see in image 1 a rotation. In image 3 a rotation and an autocontrast. Image 7 is an example where the brightness has been altered. Finally, images 10 and 14 have been equalized.
+We can see in image 1 a rotation. In image 3, a rotation and an autocontrast. Image 7 is an example where the brightness has been altered. Both images 10 and 14 have been equalized.Finally, image 18 has a small cutout in the top right corner.
 
 A few more advanced image augmentations which I did not use but would like to try in the future are either adding hairs to non-hair images or using robust principal component anaylsis to remove the hairs from the foreground. I used this method in a Georgia Tech class to remove a person from the foreground of an image like below:
 
-<div class="row"><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" class="center" alt="Original image of person walking on train track."></div><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" class="center" alt="The isolated foreground of the image, just the person."></div><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" class="center" alt="The isolated background of the image."></div></div>
+<figure>
+    <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" alt="Original image of person walking on train track." />
+    <figcaption>Original image</figcaption>
+</figure>
+<figure>
+    <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" alt="The isolated foreground of the image, just the person." />
+    <figcaption>Foreground (person) isolated</figcaption>
+</figure>
+<figure>
+    <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" alt="The isolated background of the image." />
+    <figcaption>Person removed from original image to leave background</figcaption>
+</figure>
 
 Finally, some of the images are circular suggesting that they are from a microscope. Randomly making images circular could be an augmentation to increase performance.
 
@@ -102,9 +113,9 @@ This is the number of images sent to the network together for training. Generall
 
 As this is a binary classification problem I used Cross Entropy loss which has the following formula
 
-$H = - \frac{1}{N} \sum_{i=1}^N \left[ y_n \log \hat{y}_n + (1 - y_n ) \log (1 - \hat{y}_n) \right]$ 
+$$H = - \frac{1}{N} \sum_{i=1}^N \left[ y_n \log \hat{y}_n + (1 - y_n ) \log (1 - \hat{y}_n) \right]$$
 
-where $$y_n$$ is the true label of y (0: benign, 1: malignant), $$\hat{y}_n$$ the predicted probability of $$y$$ being malignant and $$N$$ the number of total images in the loss calculation. This loss function punishes high $$\hat{y}$$ values when the actual label is $$0$$ and vice-versa.
+where $$y_n$$ is the true label of y ($$0$$: benign, $$1$$: malignant), $$\hat{y}_n$$ the predicted probability of $$y$$ being malignant and $$N$$ the number of total images in the loss calculation. This loss function punishes high $$\hat{y}$$ values when the actual label is $$0$$ and vice-versa.
 
 ### Optimization
 
