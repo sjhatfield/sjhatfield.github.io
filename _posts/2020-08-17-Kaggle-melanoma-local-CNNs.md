@@ -87,27 +87,27 @@ Finally, some of the images are circular suggesting that they are from a microsc
 
 ## Software
 
-I will be using PyTorch for the neural network implementation. The Python file where I create the networks and key functions required for training can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/src/models/model.py).
+I will be using PyTorch for the neural network implementation. The Python file where I create the networks and key functions required for training can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/src/models/model.py). Torchvision and PIL are used for image augmentations.
 
 ## Model Parameters
 
-Despite using a relatively standard training, validation, testing strategy with fairly standard architectures there are still a number of paramters to be chosen for fitting. My choices with justification come next.
+Despite using a relatively standard training, validation, testing strategy with fairly standard architectures, there are still a number of parameters to be chosen. My choices with justification come next.
 
 ### Model Architecture
 
 The architectures that I used on my local machine were Alexnet and Resnet18. These are fairly small convolutional neural networks, in the sense of the number of parameters to be trained. Once I moved the computation to the cloud, I used EfficientNets. I will briefly explain the idea behind them from the paper [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946). The authors, Mingxing Tan and Quoc V. Le, performed an architecture search where they scaled the three main measurements that determine the size of a network using the same scaling constant. The three dimensions of convolutional neural networks they scaled were:
 
-* Width: the width or number of channels of each layer in the network
-* Depth: the number of layers in the convolutional neural network
-* Resolution: this effectively the size of the images fed into the model
+* Width: the number of channels of each layer in the CNN
+* Depth: the number of layers in the CNN
+* Resolution: this is effectively the size of the images fed into the model
 
-By first finding an efficient baseline network EfficientNet-B0 they then scaled it larger and larger to achieve greater performance on ImageNet. Their basline network EfficientNet-B0 has around one fifth the number of parameters as ResNet-50 but higher accuracy. As a result of their paper, they found EfficientNet acritectures from B0 to B7 increasing in size and accuracy. For example, EfficientNet-B7 has around one eighth the number of parameters as GPipe, the previously best performing CNN on ImageNet.
+By first finding an efficient baseline network EfficientNet-B0 (based on MobileNetV2), they then scaled it larger and larger to achieve greater performance on ImageNet, using constants for each of width, height and depth in a principled way. Their basline network EfficientNet-B0 has around one fifth the number of parameters as ResNet-50 but higher accuracy. As a result of their paper, they found EfficientNet acritectures from B0 to B7 increasing in size and accuracy. For example, EfficientNet-B7 has around one eighth the number of parameters as GPipe, the previously best performing CNN on ImageNet, yet outperforms it to achieve at the time state of the art performance.
 
 So EfficientNets are not only more efficient than other networks commonly used, they are often more accurate. This made them a common choice in the competition amongst competitiors.
 
 ### Batch Size
 
-This is the number of images sent to the network together for training. Generally, the higher the batch size the better so I sent as many could be handled by the GPU or CPU at once. For the larger networks I trained this had to be eigher 16 or 32 iamges.
+This is the number of images sent to the network together for training. Generally, the higher the batch size the better so I sent as many could be handled by the GPU or CPU at once. For the larger networks I trained this had to be eigher 16 or 32 images.
 
 ### Loss Function
 
@@ -130,27 +130,27 @@ optimizer = optim.Adam(net.parameters(), lr=1e3)
 scheduler = ReduceLROnPlateau(optimizer=optimizer, mode='max', patience=2, factor=0.2)
 ```
 
-where `mode='max'` means the learning rate will be decreased once the validation accuracy stops increasing, `patience=2` means we will allow only 2 epochs of non-increasing performance and  `factor=0.2` means the current learning rate will be multiplied by 0.2 for the decrease. Another learning rate schedular which performs well is [cyclic learning rates](https://arxiv.org/abs/1506.01186) which is also available in PyTorch.
+where `mode='max'` means the learning rate will be decreased once the validation accuracy stops increasing, `patience=2` means we will allow only 2 epochs of non-increasing performance and  `factor=0.2` means the current learning rate will be multiplied by $$0.2$$ for the decrease. Another learning rate schedular which performs well is [cyclic learning rates](https://arxiv.org/abs/1506.01186) which is also available in PyTorch.
 
 ### Sampling
 
-I use PyTorchs `WeightedRandomSampler` to ensure the minority class (malignant) is sampled often enough to make sure it is $$50\%$$ of the training data. It is possible that it would be better to only sample until it makes up maybe $$20\%$$ of the data but I did not have enough time (and compute) to try this. I also wanted to use SMOTE with the image data but could not find a PyTorch implementation.
+I use the `WeightedRandomSampler` from PyTorch to ensure the minority class (malignant) is sampled often enough to make sure it is $$50\%$$ of the training data. It is possible that it would be better to only sample until it makes up maybe $$20\%$$ of the data but I did not have enough time (and compute) to try this. I also wanted to use SMOTE with the image data but could not find a PyTorch implementation.
 
 ### Number of Epochs
 
-For the local smaller networks I trained for 10 epochs and for the cloud ones 20. This was purely due to time and computation limits. I would have trained for longer if I had access to better hardware.
+For the local smaller networks I trained for 10 epochs and for the cloud ones 20. This was purely due to time and computation limits. I would have trained for longer if I had access to better hardware. I experimented with larger Resnet models which could fit into my laptops memory but I could not train for enough epochs and the models were underfit.
 
 ### Frozen Epochs
 
-I left all layers of the models except the final frozen for the first 3 epochs. This is because I was using pre-trained networks which has their final network changed to match the cancer prediciton binary classification problem. The networks are pre-trained on ImageNet which contains images of all manner of different objects/animals/things. By freezing all but the last layer, we can relatively quickly get good performance on the cancer image data and them unfreeze the full network and train the lower layers to the specific task. This is called transfer learning.
+I left all layers of the models, except the final, frozen for the first 3 epochs. This is because I was using pre-trained networks which have had their final layer changed to match the cancer prediciton binary classification problem, rather than the ImageNet classification problem. The networks are pre-trained on ImageNet which contains images of all manner of different objects/animals/things. By freezing all but the last layer, we can relatively quickly get good performance on the cancer image data and them unfreeze the full network and train the lower layers to the specific task. This is called transfer learning.
 
 ### Early Stopping
 
-This technique is to combat overfitting by stopping training if an increase in performance on the validation set is not found for a certain number of epochs in a row. I had this set to 3 for the local training and 5 for cloud training. This way a reduction in the learning rate can be tested and then training halted if better performance is not experienced with the lower learning rate.
+This technique is to combat overfitting by stopping training if an increase in performance on the validation set is not found for a certain number of epochs in a row. I had this set to 3 for the local training and 5 for cloud training. This way a reduction in the learning rate can be tested, and then training halted if better performance is not experienced with the lower learning rate.
 
 ## Model Assessment
 
-As with the tabular data, triple-stratified leakfree k-fold cross validaiton will be used. When I had more time and compute I used 5-fold cross-validation but when I was low on time and compute I use 3-fold. When external data was used it was only added as training data.
+As with the tabular data, triple-stratified leak free k-fold cross validaiton will be used. Thanks again to Chris Deotte for creating the folds! When I had more time and compute, I used 5-fold cross-validation but when I was low on time and compute I used 3-fold. When external data was used it was only added as training data.
 
 The metric used for validation is AUC-ROC as this is the metric to be assessed by Kaggle.
 
