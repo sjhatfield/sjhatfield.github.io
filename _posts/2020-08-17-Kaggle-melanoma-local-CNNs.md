@@ -72,7 +72,7 @@ A few more advanced image augmentations which I did not use but would like to tr
 
 <div class="row"><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" class="center" alt="Original image of person walking on train track."></div><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" class="center" alt="The isolated foreground of the image, just the person."></div><div class="column"><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" class="center" alt="The isolated background of the image."></div></div>
 
-Finally, some of the images are circular suggesting that they are from a microscope. Turing images circular could be an augmentation to increase performance.
+Finally, some of the images are circular suggesting that they are from a microscope. Randomly making images circular could be an augmentation to increase performance.
 
 ## Software
 
@@ -145,18 +145,17 @@ The metric used for validation is AUC-ROC as this is the metric to be assessed b
 
 ## Cloud Compute
 
-
+Once I started to train the larger models it was completely infeasible to use my laptop. Before this Kaggle contest I was studing the fast.ai course "Deep Learning for Coders" and had signed up for Google Cloud Platforms introductory $300 of cloud compute. I used this to train the models until it ran out. My final big model trained was an EfficientNet-B2 using 384 $$\times$$ 384 size images and all of the 2019 external data. For this final model I had to train it on Google colab. This posed challenges as their free GPU usage is time limited. I trained folds separately overnight using a Javascript script to move the cursor and click a button which pops up when you are inactive. This was a painful process but beat spending my own cash on compute. It paid off as this was my best performing model, as can be seen below.
 
 ## Results
 
 | Model | Local or Cloud | Image Size | External Data | CV AUC-ROC | Public LB | Private LB | Training Time (hours) |
-|:-:|:-:|-|:-:|:-:|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | AlexNet | Local | 128 | No | 0.7699 | 0.8736 | 0.8786 | 2.86 |
 | ResNet18 | Local | 64 | No | 0.8056 | 0.8801 | 0.8780 | 3.50 |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-| EfficientNet-B0 | Cloud | 256 | No | Unknown | 0.9272 | 0.9117 | 6 |
-| EfficientNet-B5 | Cloud | 256? | Malignant only | Unknown | 0.8855 | 0.8943 | Unknown |
-| EfficientNet-B2 | Cloud | 256 | Yes | Unknown | 0.9277 | 0.9161 | 10 |
-| EfficientNet-B2 | Clkoud | 384 | Yes | Unknwon | 0.9309 | 0.9164 | ~14 |
-|  |  |  |  |  |  |  |  |
+| EfficientNet-B0 | Cloud (GCP) | 256 | No | Unknown | 0.9272 | 0.9117 | Unknown |
+| EfficientNet-B5 | Cloud (GCP) | 256? | Malignant only | Unknown | 0.8855 | 0.8943 | Unknown |
+| EfficientNet-B2 | Cloud (GCP) | 256 | Yes | 0.9067 | 0.9277 | 0.9161 | Unknown |
+| EfficientNet-B2 | Cloud (GCP) | 384 | Yes | Unknown | 0.9309 | 0.9164 | 8.17 |
+
+Unfortunately, I was not diligent saving statistics about all the models I trained. This is something I will improve in the future!
