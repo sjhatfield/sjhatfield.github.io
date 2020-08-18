@@ -70,11 +70,17 @@ We can see in image 1 a rotation. In image 3 a rotation and an autocontrast. Ima
 
 A few more advanced image augmentations which I did not use but would like to try in the future are either adding hairs to non-hair images or using robust principal component anaylsis to remove the hairs from the foreground. I used this method in a Georgia Tech class to remove a person from the foreground of an image like below:
 
-<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" class="center" alt="Original image of person walking on train track."></center>
-
-<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" class="center" alt="The isolated foreground of the image, just the person."></center>
-
-<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" class="center" alt="The isolated background of the image."></center>
+<div class="row">
+        <div class="column">
+                <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" class="center" alt="Original image of person walking on train track.">
+        </div>
+        <div class="column">
+                <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" class="center" alt="The isolated foreground of the image, just the person.">
+        </div>
+        <div class="column">
+                <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" class="center" alt="The isolated background of the image."><
+        </div>
+</div>
 
 Finally, some of the images are circular suggesting that they are from a microscope. Turing images circular could be an augmentation to increase performance.
 
