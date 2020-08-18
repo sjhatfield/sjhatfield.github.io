@@ -66,6 +66,18 @@ To show this in action here is a sample of 20 images with their augmentations. R
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/augmentation_example.png" class="center" alt="20 example augmented images to be passed to the model."></center>
 
+We can see in image 1 a rotation. In image 3 a rotation and an autocontrast. Image 7 is an example where the brightness has been altered. Finally, images 10 and 14 have been equalized.
+
+A few more advanced image augmentations which I did not use but would like to try in the future are either adding hairs to non-hair images or using robust principal component anaylsis to remove the hairs from the foreground. I used this method in a Georgia Tech class to remove a person from the foreground of an image like below:
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" class="center" alt="Original image of person walking on train track."></center>
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/foreground350.png" class="center" alt="The isolated foreground of the image, just the person."></center>
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/background350.png" class="center" alt="The isolated background of the image."></center>
+
+Finally, some of the images are circular suggesting that they are from a microscope. Turing images circular could be an augmentation to increase performance.
+
 ## Software
 
 I will be using PyTorch for the neural network implementation. The Python file where I create the networks and key functions required for training can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/src/models/model.py).
@@ -128,3 +140,27 @@ I left all layers of the models except the final frozen for the first 3 epochs. 
 ### Early Stopping
 
 This technique is to combat overfitting by stopping training if an increase in performance on the validation set is not found for a certain number of epochs in a row. I had this set to 3 for the local training and 5 for cloud training. This way a reduction in the learning rate can be tested and then training halted if better performance is not experienced with the lower learning rate.
+
+## Model Assessment
+
+As with the tabular data, triple-stratified leakfree k-fold cross validaiton will be used. When I had more time and compute I used 5-fold cross-validation but when I was low on time and compute I use 3-fold. When external data was used it was only added as training data.
+
+The metric used for validation is AUC-ROC as this is the metric to be assessed by Kaggle.
+
+## Cloud Compute
+
+
+
+## Results
+
+| Model | Local or Cloud | Image Size | External Data | CV AUC-ROC | Public LB | Private LB | Training Time (hours) |
+|:-:|:-:|-|:-:|:-:|:-:|:-:|:-:|
+| AlexNet | Local | 128 | No | 0.7699 | 0.8736 | 0.8786 | 2.86 |
+| ResNet18 | Local | 64 | No | 0.8056 | 0.8801 | 0.8780 | 3.50 |
+|  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |
+| EfficientNet-B0 | Cloud | 256 | No | Unknown | 0.9272 | 0.9117 | 6 |
+| EfficientNet-B5 | Cloud | 256? | Malignant only | Unknown | 0.8855 | 0.8943 | Unknown |
+| EfficientNet-B2 | Cloud | 256 | Yes | Unknown | 0.9277 | 0.9161 | 10 |
+| EfficientNet-B2 | Clkoud | 384 | Yes | Unknwon | 0.9309 | 0.9164 | ~14 |
+|  |  |  |  |  |  |  |  |
