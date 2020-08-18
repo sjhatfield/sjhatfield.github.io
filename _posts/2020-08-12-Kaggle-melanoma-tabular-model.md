@@ -148,10 +148,12 @@ The final model had maximum depth $$1$$, so the this bar plot shows which of the
 
 Here are some example trees:
 
+<div style="width:300px; height:1200px">
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" class="center" alt="Tree number 10."></center>
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" class="center" alt="Tree number 29."></center>
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" class="center" alt="Tree number 99."></center>
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_138.png" class="center" alt="Tree number 13."></center>
+</div>
 
 The leaf values at the bottom will be summed across all $$142$$ trees and then transformed into a probability using a sigmoid function. The first image indicates that if a patient is below 72.5 years old then then this makes it more likely the patient will be predicted as benign.
 
