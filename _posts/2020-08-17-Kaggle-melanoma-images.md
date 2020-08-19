@@ -70,7 +70,7 @@ We can see in image 1 a rotation. In image 3, a rotation and an autocontrast. Im
 
 A few more advanced image augmentations which I did not use but would like to try in the future are either adding hairs to non-hair images or using robust principal component anaylsis to remove the hairs from the foreground. I used this method in a Georgia Tech class to remove a person from the foreground of an image like below:
 
-<div style="width:300px; height:900px" class="center>
+<div style="width:300px; height:900px" class="center">
 <figure>
     <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" alt="Original image of person walking on train track." />
     <figcaption>Original image</figcaption>
