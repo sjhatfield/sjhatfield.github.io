@@ -59,7 +59,7 @@ Additionally, there is a higher proportion of males in the testing data than the
 
 Now let's switch out attention to the distribution of ages of patients across the sexes.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/age_sex_dist.jpeg" alt="Bar plot of approximate patient age split by sex.">
+<img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/age_sex_dist.png" alt="Bar plot of approximate patient age split by sex.">
 
 We see a trend that for the ages of 25 to 40, there are more females in the dataset and for older patients there are more males (exceptions: 55, 90). Possibly there are more females in the younger ages because they are seeing a gynacologist (who may notice lesions) and males are seeing no doctor in that period? There is a huge jump in males at the 45 year mark. Maybe this is when men have their first physical exam and their doctor notices moles that should be checked? I am not an expert on health, especially in the US.
 
