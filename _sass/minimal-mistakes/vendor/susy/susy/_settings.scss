@@ -5,13 +5,13 @@
 ///
 /// **Columns** no longer accept a single number, like `12`,
 /// but use a syntax more similar to the new
-/// CSS [grid-template-columns][columns] –
+///  [grid-template-columns][columns] –
 /// a list of relative sizes for each column on the grid.
-/// Unitless numbers in Susy act very similar to `fr` units in CSS,
-/// and the `susy-repeat()` function (similar to the css `repeat()`)
+/// Unitless numbers in Susy act very similar to `fr` units in ,
+/// and the `susy-repeat()` function (similar to the  `repeat()`)
 /// helps quickly establish equal-width columns.
 ///
-/// [columns]: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
+/// [columns]: https://developer.mozilla.org/en-US/docs/Web//grid-template-columns
 ///
 /// - `susy-repeat(12)` will create 12 fluid, equal-width columns
 /// - `susy-repeat(6, 120px)` will create 6 equal `120px`-wide columns
@@ -71,11 +71,11 @@
 /// @prop {list} columns -
 ///   Columns are described by a list of numbers,
 ///   representing the relative width of each column.
-///   The syntax is a simplified version of CSS native
+///   The syntax is a simplified version of  native
 ///   `grid-template-columns`,
 ///   expecting a list of grid-column widths.
 ///   Unitless numbers create fractional fluid columns
-///   (similar to the CSS-native `fr` unit),
+///   (similar to the -native `fr` unit),
 ///   while length values (united numbers)
 ///   are used to define static columns.
 ///   You can mix-and match units and fractions,
@@ -85,7 +85,7 @@
 ///
 ///   Use the `susy-repeat($count, $value)` function
 ///   to more easily repetative columns,
-///   similar to the CSS-native `repeat()`.
+///   similar to the -native `repeat()`.
 ///
 ///   - `susy-repeat(8)`:
 ///     an 8-column, symmetrical, fluid grid.
@@ -104,10 +104,10 @@
 ///
 /// @prop {number} gutters -
 ///   Gutters are defined as a single width,
-///   or fluid ratio, similar to the native-CSS
+///   or fluid ratio, similar to the native-
 ///   `grid-column-gap` syntax.
 ///   Similar to columns,
-///   gutters can use any valid CSS length unit,
+///   gutters can use any valid  length unit,
 ///   or unitless numbers to define a relative fraction.
 ///
 ///   - `0.5`:
@@ -126,7 +126,7 @@
 ///     the most common use-case.
 ///     A `narrow` spread only has gutters *between* columns
 ///     (one less gutter than columns).
-///     This is how all css-native grids work,
+///     This is how all -native grids work,
 ///     and most margin-based grid systems.
 ///   - A `wide` spread includes the same number of gutters as columns,
 ///     spanning across a single side-gutter.
@@ -148,7 +148,7 @@
 ///   symmetrical fixed-unit grids.
 ///   Use `susy-repeat(12)` or `susy-repeat(12, 120px)` instead.
 ///
-/// @example scss - default values
+/// @example s - default values
 ///   // 4 symmetrical, fluid columns
 ///   // gutters are 1/4 the size of a column
 ///   // elements span 1 less gutter than columns
@@ -160,7 +160,7 @@
 ///     'container-spread': 'narrow',
 ///   );
 ///
-/// @example scss - inside-static gutters
+/// @example s - inside-static gutters
 ///   // 6 symmetrical, fluid columns…
 ///   // gutters are static, triggering calc()…
 ///   // elements span equal columns & gutters…
@@ -178,7 +178,7 @@ $susy: () !default;
 // Susy Repeat
 // -----------
 /// Similar to the `repeat(<count>, <value>)` function
-/// that is available in native CSS Grid templates,
+/// that is available in native  Grid templates,
 /// the `susy-repeat()` function helps generate repetative layouts
 /// by repeating any value a given number of times.
 /// Where Susy previously allowed `8` as a column definition
@@ -199,13 +199,13 @@ $susy: () !default;
 /// @return {list} -
 ///   List of repeated values
 ///
-/// @example scss
+/// @example s
 ///   // 12 column grid, with 5em columns
 ///   $susy: (
 ///     columns: susy-repeat(12, 5em),
 ///   );
 ///
-/// @example scss
+/// @example s
 ///   // asymmetrical 5-column grid
 ///   $susy: (
 ///     columns: 20px susy-repeat(3, 100px) 20px,
@@ -272,12 +272,12 @@ $_susy-defaults: (
 ///   then `$susy` project settings,
 ///   and finally the `$_susy-defaults`
 ///
-/// @example scss - global settings
+/// @example s - global settings
 ///   @each $key, $value in susy-settings() {
 ///     /* #{$key}: #{$value} */
 ///   }
 ///
-/// @example scss - local settings
+/// @example s - local settings
 ///   $local: ('columns': 1 2 3 5 8);
 ///
 ///   @each $key, $value in susy-settings($local) {
@@ -311,7 +311,7 @@ $_susy-defaults: (
 ///   in order of specificity:
 ///   `$susy`, then `$_susy-defaults`
 ///
-/// @example scss -
+/// @example s -
 ///   /* columns: #{susy-get('columns')} */
 ///   /* gutters: #{susy-get('gutters')} */
 @function susy-get(

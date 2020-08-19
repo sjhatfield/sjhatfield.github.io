@@ -1,7 +1,7 @@
 ---
 title: "Melanoma Prediction Kaggle Contest - Part 3: Image Data"
 date: 2020-08-12
-tags: [kaggle, competition, CNN, neural networks]
+tags: [kaggle, competition, computer vision, convolutional neural networks]
 mathjax: true
 classes: wide
 ---
@@ -10,11 +10,11 @@ If you would prefer to go straight to the code to learn about my approach to the
 
 Previously: [Part 1](https://sjhatfield.github.io/2020-08-12-Kaggle-melanoma-contest-exploration) and [Part 2](https://sjhatfield.github.io/Kaggle-melanoma-tabular-model/).
 
-Credit: the user [Roman](https://www.kaggle.com/nroman) has provided many public notebooks on Kaggle which were incredibly useful in developing my own code.
+Big thanks: the user [Roman](https://www.kaggle.com/nroman) has provided many public notebooks on Kaggle which were incredibly useful in developing my own code for this contest. I cannot find (because they have so many) the original notebook which inspired me most but check out their work on Kaggle.
 
 ## Introduction
 
-It is now time to train models which will use the patient image data. As we are using image data we will be using convolutional neural networks. I begin training some smaller models which can be done on my local machine and then test out training a larger model before sending the computation to the cloud so that larger image sizes can be used.
+It is now time to train models which will use the patient image data. As we are making predicitions useing images, we will be using convolutional neural networks. I begin training some smaller models which can be done on my local machine and then test out training a larger model before sending the computation to the cloud so that larger image sizes can be used.
 
 ## Image Augmentations
 
@@ -41,7 +41,7 @@ The code for my image augmentations can be found [here](https://github.com/sjhat
 
 The images to be classified are photos of skin lesions taken directly from above. So most augmentations make sense as there is no fixed perspective.
 
-The next thing to decide is how many of these to be applied and what parameters to be used with them. For example, by how many degrees do we rotate. I followed the advice from the paper [UniformAugment: A Search-free ProbabilisticData Augmentation Approach](https://arxiv.org/abs/2003.14348v1). The key takeaway from this paper is that, "a uniform sampling over the continuous space of augmentation transformations is sufficient to train highly effective models". With this is mind, to get an image from the training data to be passed to the network, a random sample of two augmentations was chosen from all that are possible above. Then each was performed uniformly at random with a magnitude randomly chosen from their range of possible magnitudes. Here is the code that explains how this happens exactly:
+The next thing to decide is how many of these to be applied and what parameters to be used with them. For example, by how many degrees do we rotate and how often? I followed the advice from the paper [UniformAugment: A Search-free ProbabilisticData Augmentation Approach](https://arxiv.org/abs/2003.14348v1). The key takeaway from this paper is that, "a uniform sampling over the continuous space of augmentation transformations is sufficient to train highly effective models". With this is mind, to get an image from the training data to be passed to the network, a random sample of two augmentations was chosen from all that are possible above. Then each was performed uniformly at random with a magnitude randomly chosen from their range of possible magnitudes. Here is the code that explains how this happens exactly:
 
 ```python
 def __call__(self, img: PIL.Image) -> PIL.Image:
@@ -62,7 +62,7 @@ def __call__(self, img: PIL.Image) -> PIL.Image:
         return img
 ```
 
-To show this in action, here is a sample of 20 images with their augmentations. Remember some of these will have no augmentation at all. These are the not the exact form of the images that are passed to the model, as they have not been normalized according to the ImageNet databases mean and standard deviation. Almost all pre-trained neural networks are trained on this dataset so images should be normalized according to the same summary statistics. If I was to show normalized images they would be bright, garish colors.
+To show this in action, here is a sample of 20 images with their augmentations. Remember some of these will have no augmentation at all. These are the not the exact form of the images that are passed to the model, as they have not been normalized according to the ImageNet databases mean and standard deviation. Almost all pre-trained neural networks are trained on this dataset, so images should be normalized according to the same summary statistics. If I was to show normalized images they would be bright, garish colors.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/augmentation_example.png" class="center" alt="20 example augmented images to be passed to the model."></center>
 
@@ -89,11 +89,11 @@ Finally, some of the images are circular suggesting that they are from a microsc
 
 ## Software
 
-I will be using PyTorch for the neural network implementation. The Python file where I create the networks and key functions required for training can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/src/models/model.py). Torchvision and PIL are used for image augmentations.
+I will be using PyTorch for the CNN model implementation. The Python file where I create the networks and key functions required for training can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/src/models/model.py). Torchvision and PIL are used for image augmentations. Finally, the models are trained using a standard process in notebooks, here is a [Resnet example](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/resnet_internal.ipynb).
 
 ## Model Parameters
 
-Despite using a relatively standard training, validation, testing strategy with fairly standard architectures, there are still a number of parameters to be chosen. My choices with justification come next.
+Despite using a relatively standard training, validation and testing strategy with fairly standard architectures, there are still a number of parameters to be chosen. My choices with justification come next.
 
 ### Model Architecture
 
@@ -115,7 +115,7 @@ This is the number of images sent to the network together for training. Generall
 
 As this is a binary classification problem I used Cross Entropy loss which has the following formula
 
-$$H = - \frac{1}{N} \sum_{i=1}^N \left[ y_n \log \hat{y}_n + (1 - y_n ) \log (1 - \hat{y}_n) \right]$$
+$$H = - \frac{1}{N} \sum_{i=1}^N \left[ y_i \log \hat{y}_i+ (1 - y_i) \log (1 - \hat{y}_i) \right]$$
 
 where $$y_n$$ is the true label of y ($$0$$: benign, $$1$$: malignant), $$\hat{y}_n$$ the predicted probability of $$y$$ being malignant and $$N$$ the number of total images in the loss calculation. This loss function punishes high $$\hat{y}$$ values when the actual label is $$0$$ and vice-versa.
 
@@ -150,9 +150,13 @@ I left all layers of the models, except the final, frozen for the first 3 epochs
 
 This technique is to combat overfitting by stopping training if an increase in performance on the validation set is not found for a certain number of epochs in a row. I had this set to 3 for the local training and 5 for cloud training. This way a reduction in the learning rate can be tested, and then training halted if better performance is not experienced with the lower learning rate.
 
+### Test Time Augmentations
+
+It is common with computer vision tasks where augmentation is performed on training data to also perform the augmentation on the test data when making final predicitons. By feeding the same test image multiple times with different augmentations the predicitons can be averaged. The idea is that by doing this the error in the prediction is averaged and large errors which effect final accuracy are lowered. For local training I performed 3 test time augmentations, for the cloud training I performed 10. These take a long time so for a real-world application where predicitons need to be as fast as possible, they may not be practical.
+
 ## Model Assessment
 
-As with the tabular data, triple-stratified leak free k-fold cross validaiton will be used. Thanks again to Chris Deotte for creating the folds! When I had more time and compute, I used 5-fold cross-validation but when I was low on time and compute I used 3-fold. When external data was used it was only added as training data.
+As with the tabular data, triple-stratified leak free k-fold cross validaiton will be used. Thanks again to [Chris Deotte](https://www.kaggle.com/cdeotte) for creating the folds! When I had more time and compute, I used 5-fold cross-validation but when I was low on time and compute I used 3-fold. When external data was used it was only added as training data.
 
 The metric used for validation is AUC-ROC as this is the metric to be assessed by Kaggle.
 
@@ -169,6 +173,51 @@ Once I started to train the larger models it was completely infeasible to use my
 | EfficientNet-B0 | Cloud (GCP) | 256 | No | Unknown | 0.9272 | 0.9117 | Unknown |
 | EfficientNet-B5 | Cloud (GCP) | 256? | Malignant only | Unknown | 0.8855 | 0.8943 | Unknown |
 | EfficientNet-B2 | Cloud (GCP) | 256 | Yes | 0.9067 | 0.9277 | 0.9161 | Unknown |
-| EfficientNet-B2 | Cloud (GCP) | 384 | Yes | Unknown | 0.9309 | 0.9164 | 8.17 |
+| EfficientNet-B2 | Cloud (GCP + Colab) | 384 | Yes | Unknown | 0.9309 | 0.9164 | 8.17 |
 
-Unfortunately, I was not diligent saving statistics about all the models I trained. This is something I will improve in the future!
+Unfortunately, I was not diligent saving statistics about all the models I trained. I often got excited to try something new and forgot to record the training that had just taken place. This is something I will improve in the future!
+
+In this Kaggle contest, and I assume all others, before the deadline is reached only 30% of your submission is assessed to provide your score on the public leaderboard. Once the deadline is reached your 3 chosen submissions are assessed on the other 70% of the test data and your private leaderboard position is revealed. On the public leaderboard there were multiple submission with AUC-ROC score 0.97+ but the winning submission of the contest achieved 0.9490 on the private leaderboard. This team jumped 886 places from public to private!
+
+My final position was 1538th out of 3319 competitors and my jump from public to private was 256 places. I am happy to have finished in the top half of competitors in my first Kaggle contest using only freely available computation.
+
+## The Ensembled Model
+
+Before the final submission I was only able to ensemble one of my CNN models with my XGBoost tabular classifier. It was the Resnet18 trained on 64 $$\times$$ 64 images. The notebook to find the ensemble ratio can be viewed [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/ensemble.ipynb). By trying out proportions from 10% all the way to 90% for the tabular contribution to the prediction on the validaiton data, I found that the best split was 40% tabular and 60% CNN. This model achieved a supremely impressive AUC-ROC of 0.9035 on the private leaderboard. I was surprised a model trained on such small images could achieve such a high score. This whole model was trained on my relatively low spec, three-year-old laptop! This model alone would have placed around 1900th out of 3300 competitors.
+
+If I have time I would like to try ensembling the tabular model with the best performing EfficientNet model. I have the model parameters for each of the folds saved in state dictionarys, so this is still possible. It would interesting to see if the tabular model is able to boost the CNN model in any way.
+
+## Extensions
+
+If I had unlimited compute and more time there are so many more ideas I have for this contest. Here are some of them:
+
+* Train the largest EfficientNet, on the largest images, for as many epochs as possible with 5-fold cross validation. Then ensemble this with a tabular model
+* Find more external data to train the model on. Competitors gave more in the Kaggle forums
+* Experiment with both adding hairs and removing them from the training data
+* Instead of fitting to the benign/malignant binary, fit to the diagnosis. I can't take credit for this, the eventual winners did this
+* Train many large CNNs on large image sizes and then ensemble them to get predicitons
+* Use a *cyclic* learning rate schedule rather than the *reduce on plateau* I used. We used cyclic learning rates in the fast.ai course and I know Jeremy Howard is a big proponent
+* Learn how to distribute training over multiple GPUs and then how to use a TPU and then multiple TPUs!
+* Rather than choosing the parameters outlined earlier in this post, I found do some kind of [hyperparameter search](https://www.wikiwand.com/en/Hyperparameter_optimization), probably Bayesian.
+
+## Analysis Of The Winning Method
+
+The winning team have graciously outlined [on the forums](https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/175412) what approach they took to the problem. I have summarised it below.
+
+* Used all ISIC data for training **and validation**. They checked and found the cross-validation score to be more stable when using all data for validation
+* They ensembled many models together. They found the more they ensembled, the higher the correlation between their cross-validated score and the leaderboard score
+* They trained CNN models with and without metadata. There are ways to include metadata in images
+* They predicted diagnosis, rather than simply benign/malignant. This meant mapping the external datas diagnosis column to the 2020 version
+* They used a long list of random augmentations (probability $$50\%$$ of being done) and then one of some subgroups of augmentations. How they chose these is not clear
+* They did not augment validation data
+
+## What Have I Learnt?
+
+* Image augmentations are important for training CNNs and there can be very creative
+* Unfiorm augmentations can be a way to perform augmentations which does not require much parameter tuning
+* How to perform weighted sampling and use a learning rate scheduler in PyTorch
+* How to use a learning rate scheduler in PyTorch
+* I need to be more systematic in how I record and store my experiments
+* I need to be more careful how to use cloud compute. I was careless training too many models and did not make the most of the free Google cloud credits
+* That PyTorch has many pretrained networks built in which can be loaded easily. Hopefully they add EfficientNets to these soon
+* That as far as I can tell there is no SMOTE sampling implementation for PyTorch, maybe I should write one

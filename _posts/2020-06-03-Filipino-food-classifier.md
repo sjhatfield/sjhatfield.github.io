@@ -29,7 +29,7 @@ This project was completed using the [fastai library](https://docs.fast.ai/) whi
 
 Here is a selection of some of the images with their classification. The function to display them does not perform the augmentations.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/filipino-food-classifier/batch.png" alt="9 Filipino food images from the training data" class="center">
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/filipino-food-classifier/batch.png" alt="9 Filipino food images from the training data"></center>
 
 All 9 of these images have the correct classification, however, as we will learn later some of the images in the dataset do have the correct classification.
 

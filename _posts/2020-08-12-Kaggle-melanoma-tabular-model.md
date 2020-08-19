@@ -148,7 +148,7 @@ The final model had maximum depth $$1$$, so the this bar plot shows which of the
 
 Here are some example trees:
 
-<div style="width:300px; height:1200px">
+<div style="width:300px; height:700px" class="center">
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_10.png" class="center" alt="Tree number 10."></center>
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_29.png" class="center" alt="Tree number 29."></center>
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/tree_99.png" class="center" alt="Tree number 99."></center>
