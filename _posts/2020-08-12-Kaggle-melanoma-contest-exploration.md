@@ -4,6 +4,7 @@ date: 2020-08-12
 tags: [kaggle, competition, computer vision, deep lerning]
 mathjax: true
 classes: wide
+excerpt: "Kaggle skin cancer melanoma contest introduced and the dataset explored."
 ---
 
 If you would prefer to go straight to the code to learn about my approach to the competition please [go here](https://github.com/sjhatfield/kaggle-melanoma-2020).

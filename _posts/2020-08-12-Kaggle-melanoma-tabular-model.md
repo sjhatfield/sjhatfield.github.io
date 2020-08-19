@@ -4,6 +4,7 @@ date: 2020-08-12
 tags: [kaggle, competition, gradient boosted trees, xgboost, smote, oversampling]
 mathjax: true
 classes: wide
+excerpt: "Predicting skin cancer melanoma from patient data with boosted decision trees."
 ---
 
 If you would prefer to go straight to the code to learn about my approach to the competition please [go here](https://github.com/sjhatfield/kaggle-melanoma-2020). The specific notebook for the tabular models is [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/tabular.ipynb).
