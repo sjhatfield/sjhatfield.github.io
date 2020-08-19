@@ -70,7 +70,7 @@ We can see in image 1 a rotation. In image 3, a rotation and an autocontrast. Im
 
 A few more advanced image augmentations which I did not use but would like to try in the future are either adding hairs to non-hair images or using robust principal component anaylsis to remove the hairs from the foreground. I used this method in a Georgia Tech class to remove a person from the foreground of an image like below:
 
-<div style="width:300px; height:1200px" class="center>
+<div style="width:300px; height:900px" class="center>
 <figure>
     <img src="{{ site.url }}{{ site.baseurl }}/images/kaggle-melanoma/image350.png" alt="Original image of person walking on train track." />
     <figcaption>Original image</figcaption>
@@ -204,7 +204,7 @@ If I had unlimited compute and more time there are so many more ideas I have for
 
 The winning team have graciously outlined [on the forums](https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/175412) what approach they took to the problem. I have summarised it below.
 
-* Used all ISIC data for training **and validation**. They checked and found the cross-validation score to be more stable when using all data for validation
+* Used 2018, 2019 and 2020 data for training **and validation**. They checked and found the cross-validation score to be more stable when using all data for validation
 * They ensembled many models together. They found the more they ensembled, the higher the correlation between their cross-validated score and the leaderboard score
 * They trained CNN models with and without metadata. There are ways to include metadata in images
 * They predicted diagnosis, rather than simply benign/malignant. This meant mapping the external datas diagnosis column to the 2020 version
