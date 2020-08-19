@@ -4,6 +4,7 @@ date: 2020-05-20
 tags: [projects, machine learning, regression]
 mathjax: true
 classes: wide
+excerpt: "A machine learning powered application to aid with the purchasing of a used car."
 ---
 
 If you want to skip to the finished product follow [this link](http://178.79.141.9/). I have not purchased a domain name and apologise that I have not set up HTTPS, so your browser may complain that the site is dangerous. If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/car-purchase-help).

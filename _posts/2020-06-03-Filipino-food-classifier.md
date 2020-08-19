@@ -4,6 +4,7 @@ date: 2020-06-03
 tags: [projects, deep learning, transfer learning, computer vision, fastai]
 mathjax: true
 classes: wide
+excerpt: "Classifying Filipino food dishes from a single photo."
 ---
 
 [//]: # "If you want to skip to the finished product follow [this link](https://filipino-food-classifier.onrender.com/)."
