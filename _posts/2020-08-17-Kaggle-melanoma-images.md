@@ -51,16 +51,16 @@ Select a random sample of augmentations where
 `self.operations` determines how many and perform them
 on the image
 """
-operations = random.sample(list(self.augs.items()), self.operations)
-for operation in operations:
-augmentation, range = operation
-# Uniformly select value from range of augmentations
-magnitude = random.uniform(range[0], range[1])
-# Perform augmentation uniformly at random
-probability = random.random()
-if random.random() < probability:
-img = self.func[augmentation](img, magnitude)
-return img
+    operations = random.sample(list(self.augs.items()), self.operations)
+    for operation in operations:
+        augmentation, range = operation
+        # Uniformly select value from range of augmentations
+        magnitude = random.uniform(range[0], range[1])
+        # Perform augmentation uniformly at random
+        probability = random.random()
+        if random.random() < probability:
+            img = self.func[augmentation](img, magnitude)
+    return img
 ```
 
 To show this in action, here is a sample of 20 images with their augmentations. Remember some of these will have no augmentation at all. These are the not the exact form of the images that are passed to the model, as they have not been normalized according to the ImageNet databases mean and standard deviation. Almost all pre-trained neural networks are trained on this dataset, so images should be normalized according to the same summary statistics. If I was to show normalized images they would be bright, garish colors.
