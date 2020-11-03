@@ -6,7 +6,7 @@ title: "About"
 ---
 
 
-My name is Sam Hatfield and I am a Brit living in Manila, Philippines. I am a mathematician in the process of transitioning into a Data Science, Machine Learning, AI career.
+My name is Sam Hatfield and I am a Brit living in Manila, Philippines. I am a mathematician in the process of transitioning into a Data Science, Machine Learning, AI career. My family are relocating to the US in June 2021 and I am open actively applying for jobs and possibly internships for then. I will still be a fully enrolled student at that time but will be able to work full-time. Initially, I will be in the Seattle area but am open to opportunities nationwide. I possess a legal permanant residency permit for the US.
 
 My academic background is mathematics. In my studies I went deep into the purest forms of mathematics such as topology, manifolds, lie algebras, continuum mechanics, group theory and more. After completing a masters in mathematics I then trained in London to be a mathematics teacher. I worked as a mathematics teacher in two International Schools since leaving academia.
 
