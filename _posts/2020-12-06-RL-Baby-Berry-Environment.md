@@ -20,13 +20,11 @@ Here is an example of the baby (in green) moving randomly around the environment
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-dumb.gif" alt="Baby moving randomly against dumb dad"></center>
 
-
 The environment is designed so that each individual berry may be given a different movement probability and starting position, or they may be assigned randomly.
 
 The dad may be initialized to be *smart* which means they move towards the baby at each time step. Here is an example of a smart dad moving again with probability 50%.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-smart.gif" alt="Baby moving randomly against smart dad"></center>
-
 
 The baby has a choice of 5 movements to take at each time step. They may move north, south, east, west or randomly. Why randomly you may ask. The reason a random movement is necessary is because the learners are provided with only a view of the immediate neighborhood around the baby. All algorithms were given a *state size* of 5 which means they can see a 5 by 5 grid with the baby in the middle. Therefore, to encourage the baby not to get stuck in an infinite loop taking the same two actions over and over a random action was given. However, this looping did still take place for some learners as you'll see below.[^1]
 
@@ -93,4 +91,4 @@ So those are the four algorithms currently implemented. They can be found [here]
 
 ## Results
 
-[^1] As I was writing this I realized that in some situations the baby may want to stay still if they anticipate a berry randomly moving into them. The baby moves before the berries so maybe they would not choose to stay still but I can experiment with adding this sixth action.
+[^1]: As I was writing this I realized that in some situations the baby may want to stay still if they anticipate a berry randomly moving into them. The baby moves before the berries so maybe they would not choose to stay still but I can experiment with adding this sixth action.
