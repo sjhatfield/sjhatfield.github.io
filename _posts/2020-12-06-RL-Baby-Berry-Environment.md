@@ -77,11 +77,11 @@ $$Q_{t+3}(S_t, A_t) = Q_{t + 3 - 1}(S_t, A_t) + \alpha (R_{t+1} + \gamma R_{t + 
 
 The intuitive way of thinking about the algorithm is that reward experienced propogates backwards to state action pairs 3 steps previous. Sutton and Barto's excellent book "Reinforcement Learning: An Introduction" illustrates it well on page 147
 
-<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/nstepSARSA.jpg" alt="Visualization of 1-step SARSA compared to 10-step SARSA"></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/nstepSARSA.png" alt="Visualization of 1-step SARSA compared to 10-step SARSA"></center>
 
 Double Q-learning makes up for a shortcoming in regular Q-learning quite elegently. The shortcome in Q-learning is most easily seen by way of a simple example. From Sutton and Barto page 135, consider the small Markov Decision Process shown below:
 
-<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smallMDP.jpg" alt="Small MDP for double Q-learning"></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smallMDP.png" alt="Small MDP for double Q-learning"></center>
 
 The "game" begins at state A and the players may move left or right experiencing zero reward. If the player moves right the game is over but if the play moves left they then make one more move with reward normally distributed with mean -0.1 and standard deviation 1. Sometimes the reward will be positive but on average the reward should be -0.1. However, during training it is entirely possible that the learner has experienced positive reward moving to the left so prefers this route. Despite the fact that on average they will experience -0.1 reward and should choose to move right.
 
