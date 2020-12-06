@@ -7,8 +7,9 @@ classes: wide
 excerpt: "Solving a custom made reinforcement learning problem using a variety of algorithms"
 ---
 
-[//]: # "If you want to skip to the finished product follow [this link](https://filipino-food-classifier.onrender.com/)."
-If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry). In order to revisit concepts and learned earlier in the year taking Georgia Tech's fantastic graduate course in reinforcement learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
+If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry). 
+
+In order to revisit concepts and learned earlier in the year taking Georgia Tech's fantastic graduate course in reinforcement learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
 
 ## Introduction to the Environment
 
@@ -17,14 +18,14 @@ Taking insipiration from my young son who absolutely adores eating all kinds of 
 Here is an example of the baby (in green) moving randomly around the environment. The berries (in purple) have been given a random movement probability of 50%. There is a parent (in blue) who is also moving randomly around the environment with probability 50%. Parents (or dads as I call them in the code) are referred to as dumb if they just move randomly.
 
 
-<center><img src="https://github.com/sjhatfield/babyberry/blob/main/images/random-dumb.gif" alt="Baby moving randomly against dumb dad"></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-dumb.gif" alt="Baby moving randomly against dumb dad"></center>
 
 
 The environment is designed so that each individual berry may be given a different movement probability and starting position, or they may be assigned randomly.
 
 The dad may be initialized to be *smart* which means they move towards the baby at each time step. Here is an example of a smart dad moving again with probability 50%.
 
-<center><img src="https://github.com/sjhatfield/babyberry/blob/main/images/random-smart.gif" alt="Baby moving randomly against smart dad"></center>
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-smart.gif" alt="Baby moving randomly against smart dad"></center>
 
 
 The baby has a choice of 5 movements to take at each time step. They may move north, south, east, west or randomly. Why randomly you may ask. The reason a random movement is necessary is because the learners are provided with only a view of the immediate neighborhood around the baby. All algorithms were given a *state size* of 5 which means they can see a 5 by 5 grid with the baby in the middle. Therefore, to encourage the baby not to get stuck in an infinite loop taking the same two actions over and over a random action was given. However, this looping did still take place for some learners as you'll see below.[^1]
