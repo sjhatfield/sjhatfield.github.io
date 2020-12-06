@@ -85,7 +85,7 @@ The "game" begins at state A and the players may move left or right experiencing
 
 Sutton and Barton found through experiments that Q-learning chooses the left action far more frequently than it should. Double Q-learning partially alleviates this potential for wha is called *maximization bias* by maintaining two sets of Q values and randomly updating each one (with equal chance) at a time step. Furthermore, for each update Q values from the other collection are used. Mathematically this means:
 
-$$Q_1(S_t, A_t) \leftarrow Q_1(S_t, A_t) + \alpha(R_{t+1} + \gamma Q_2(S_{t+1}, \argmax_a Q_1(S_{t+1}, a)) - Q_1(S_t, A_t))$$
+$$Q_1(S_t, A_t) \leftarrow Q_1(S_t, A_t) + \alpha(R_{t+1} + \gamma Q_2(S_{t+1}, \text{argmax}_a Q_1(S_{t+1}, a)) - Q_1(S_t, A_t))$$
 
 So those are the four algorithms currently implemented. They can be found [here](https://github.com/sjhatfield/babyberry/tree/main/models). I am also working on n-step Tree Backup, off-policy Monte-Carlo control, Monte-Carlo Exploring Starts and Q($$\sigma$$) learning.
 
