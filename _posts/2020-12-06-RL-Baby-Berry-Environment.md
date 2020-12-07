@@ -4,12 +4,12 @@ date: 2020-12-06
 tags: [reinforcement learning, Q-learning, double-Q-learning, SARSA, OOP]
 mathjax: true
 classes: wide
-excerpt: "Solving a custom made reinforcement learning problem using a variety of algorithms"
+excerpt: "Solving a custom made Reinforcement Learning problem using a variety of algorithms"
 ---
 
 If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry). 
 
-In order to revisit concepts and learned earlier in the year taking Georgia Tech's fantastic graduate course in reinforcement learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
+In order to revisit concepts and learned earlier in the year taking Georgia Tech's fantastic graduate course in Reinforcement Learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
 
 ## Introduction to the Environment
 
