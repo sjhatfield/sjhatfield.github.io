@@ -14,4 +14,6 @@ Currently, I am taking a break from work to study full-time. Most of my time has
 
 Now that I am getting to the end of my masters, I am transitioning my focus to building applications using the plethora of machine learning, AI, statistial and mathematical concepts I have learnt. You can read about them on this site.
 
-[Here is a link to a Resume (Dec 2020)](https://sjhatfield.com/Samuel_Hatfield_Resume.pdf)
+[Here is a link to my Resume (Dec 2020)](https://sjhatfield.com/Samuel_Hatfield_Resume.pdf)
+
+Thanks for visiting.
