@@ -115,7 +115,7 @@ Interestingly, the Q-learner outperformed the double Q-learner and its graph is 
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smart_dad/Qlearner/episode_rewards.png" alt="Running average total reward per episode for Q-learner"></center>
 
-Finally, here is the Q-learner playing against the smart dad.
+Finally, here is the Q-learner playing against the smart dad. At the beginning of the episode the baby does well to avoid the dad in the bottom right corner and then is rewarded with some berries as they move upwards. Again we can see a 2-step loop that the baby gets stuck in.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/double-Qlearner-dumb.gif" alt="Baby against smart dad following Q-learner policy"></center>
 
@@ -133,5 +133,6 @@ Here is a list of additional features and algorithms I would like to add to this
 * Add random blocks of wall to the environment.
 * Change the action selection from "N", "S", "E", "W", "R" to 0, 1, 2 ,3, 4
 * Fix a rare bug where the dad moves two spaces when smart.
+* Add a reward penalty for getting stuck in a loop to encourage the baby to make random movements to explore the board.
 
 [^1]: As I was writing this I realized that in some situations the baby may want to stay still if they anticipate a berry randomly moving into them. The baby moves before the berries so maybe they would not choose to stay still but I can experiment with adding this sixth action.
