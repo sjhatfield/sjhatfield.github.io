@@ -15,7 +15,7 @@ In order to revisit concepts and learned earlier in the year taking Georgia Tech
 
 Taking insipiration from my young son who absolutely adores eating all kinds of berries, this environment is made up of a rectangular grid which the baby may move around attempting to collect and eat berries. The berries being spherically shaped, are able to roll around the environment making the game a little more challenging for the baby. Finally, to make the task even more challenging for the intrepid berry hunter there may be a parent present marching around the grid trying to stop the baby from consuming all the expensive berries.
 
-Here is an example of the baby (in green) moving randomly around the environment. The berries (in purple) have been given a random movement probability of 50%. There is a parent (in blue) who is also moving randomly around the environment with probability 50%. Parents (or dads as I call them in the code) are referred to as dumb if they just move randomly.
+Here is an example of the baby (in green) moving randomly around the environment. The berries (in purple) have been given a random movement probability of 50%. There is a parent (in green) who is also moving randomly around the environment with probability 50%. Parents (or dads as I call them in the code) are referred to as dumb if they just move randomly.
 
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-dumb.gif" alt="Baby moving randomly against dumb dad"></center>
@@ -57,7 +57,9 @@ So far the learners successfully implemeneted are:
 
 All begin with an epsilon greedy policy with epsilon equal to one which means actions are chosen randomly and update Q values based on experience playing the game until eventual convergence to the optimal policy. The convergence is guaranteed as long as all state, actions pairs are visited an infinite number of times. SARSA is the slowest to converge as the update rule
 
-$$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha (R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t))$$ is the least efficient at moving towards the true Q values.
+$$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha (R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t))$$ 
+
+is the least efficient at moving towards the true Q values.
 
 Q-learning improves upon SARSA by updating the Q value towards the best possible next Q value, instead of just whatever the current policy would next select. In the update rule this translates to 
 
@@ -81,14 +83,55 @@ Double Q-learning makes up for a shortcoming in regular Q-learning quite elegent
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smallMDP.png" alt="Small MDP for double Q-learning"></center>
 
-The "game" begins at state A and the players may move left or right experiencing zero reward. If the player moves right the game is over but if the play moves left they then make one more move with reward normally distributed with mean -0.1 and standard deviation 1. Sometimes the reward will be positive but on average the reward should be -0.1. However, during training it is entirely possible that the learner has experienced positive reward moving to the left so prefers this route. Despite the fact that on average they will experience -0.1 reward and should choose to move right.
+The "game" begins at state A and the player may move left or right experiencing zero reward. If the player moves right the game is over but if the play moves left they then make one more move with reward normally distributed with mean -0.1 and standard deviation 1. Sometimes the reward will be positive but on average the reward should be -0.1. However, during training it is entirely possible that the learner has experienced positive reward moving to the left so prefers this route. Despite the fact that on average they will experience -0.1 reward and should choose to move right.
 
-Sutton and Barton found through experiments that Q-learning chooses the left action far more frequently than it should. Double Q-learning partially alleviates this potential for wha is called *maximization bias* by maintaining two sets of Q values and randomly updating each one (with equal chance) at a time step. Furthermore, for each update Q values from the other collection are used. Mathematically this means:
+Sutton and Barton found through experiments that Q-learning chooses the left action far more frequently than it should. Double Q-learning partially alleviates this potential for *maximization bias* by maintaining two sets of Q values and randomly updating each one (with equal chance) at a time step. Furthermore, for each update Q values from the other collection are used. Mathematically this means:
 
 $$Q_1(S_t, A_t) \leftarrow Q_1(S_t, A_t) + \alpha(R_{t+1} + \gamma Q_2(S_{t+1}, \text{argmax}_a Q_1(S_{t+1}, a)) - Q_1(S_t, A_t))$$
+
+and vice versa for updating $$Q_2$$.
 
 So those are the four algorithms currently implemented. They can be found [here](https://github.com/sjhatfield/babyberry/tree/main/models). I am also working on n-step Tree Backup, off-policy Monte-Carlo control, Monte-Carlo Exploring Starts and Q($$\sigma$$) learning.
 
 ## Results
+
+### Dumb Dad
+
+All algorithms were able to beat the dumd dad except for regular SARSA. The double Q-learner was able to beat it in the fewest episodes and its running average total reward over 200 episodes is shown below.
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/dumb_dad/double_Qlearner/episode_rewards.png" alt="Running average total reward per episode for double Q-learner"></center>
+
+Note how training was not halted upon completion as the learner could still improve it's strategy over the remaining episodes. Below you can see an example of the baby following the learners final policy.
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/double-Qlearner-dumb.gif" alt="Baby against dumb dad following double Q-learner policy"></center>
+
+You may notice that as the baby moves towards the bottom right of the grid it temporarily enters a two step loop. It would be possible to do some reward shaping and punish the learner if it enters a loop to encourage more random movement.
+
+### Smart Dad
+
+Against the smart dad, who moves towards the baby with probability 25%, the double Q-learner and Q-learner were able to beat the game in the episodes allowed (100,000). The SARSA based learners were not able to quite average -30 total reward.
+
+Interestingly, the Q-learner outperformed the double Q-learner and its graph is shown below.
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smart_dad/Qlearner/episode_rewards.png" alt="Running average total reward per episode for Q-learner"></center>
+
+Finally, here is the Q-learner playing against the smart dad.
+
+<center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/double-Qlearner-dumb.gif" alt="Baby against smart dad following Q-learner policy"></center>
+
+If we think about how often double Q-learner updates are performed, we notice that only half of the time each Q-value store is updated so this could explain the slower performance. For the dumb dad maybe the improvements due to avoiding maximization bias outweighed the slowdown.
+
+## What Have I Learnt?
+
+In terms of new concepts this project has introduced double-Qlearning which was not covered in the course I took. I used annotations and vertical lines in matplotlib figures for the first time. Also, creating the gifs of the game running was a new and slightly frustrating experience.
+
+## What Next?
+
+Here is a list of additional features and algorithms I would like to add to this project.
+
+* Experiment with increasing the state view for the baby to 7.
+* Add random blocks of wall to the environment.
+* Change the action selection from "N", "S", "E", "W", "R" to 0, 1, 2 ,3, 4
+* Fix a rare bug where the dad moves two spaces when smart.
 
 [^1]: As I was writing this I realized that in some situations the baby may want to stay still if they anticipate a berry randomly moving into them. The baby moves before the berries so maybe they would not choose to stay still but I can experiment with adding this sixth action.
