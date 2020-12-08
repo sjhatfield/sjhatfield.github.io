@@ -9,7 +9,7 @@ excerpt: "Predicting skin cancer melanoma with convolutional neural networks."
 
 If you would prefer to go straight to the code to learn about my approach to the competition please [go here](https://github.com/sjhatfield/kaggle-melanoma-2020). The notebooks for the models on this page can be found [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/).
 
-Previously: [Part 1](https://sjhatfield.github.io/2020-08-12-Kaggle-melanoma-contest-exploration) and [Part 2](https://sjhatfield.github.io/Kaggle-melanoma-tabular-model/).
+Previously: [Part 1](https://sjhatfield.github.io/Kaggle-melanoma-contest-exploration/) and [Part 2](https://sjhatfield.github.io/Kaggle-melanoma-tabular-model/).
 
 Big thanks: the user [Roman](https://www.kaggle.com/nroman) has provided many public notebooks on Kaggle which were incredibly useful in developing my own code for this contest. I cannot find (because they have so many) the original notebook which inspired me most but check out their work on Kaggle.
 

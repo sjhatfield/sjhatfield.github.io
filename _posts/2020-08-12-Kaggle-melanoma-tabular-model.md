@@ -9,7 +9,7 @@ excerpt: "Predicting skin cancer melanoma from patient data with boosted decisio
 
 If you would prefer to go straight to the code to learn about my approach to the competition please [go here](https://github.com/sjhatfield/kaggle-melanoma-2020). The specific notebook for the tabular models is [here](https://github.com/sjhatfield/kaggle-melanoma-2020/blob/master/notebooks/tabular.ipynb).
 
-Part 1 where I introduce the contest and explore the data can be found [here](https://sjhatfield.github.io/2020-08-12-Kaggle-melanoma-contest-exploration).
+Part 1 where I introduce the contest and explore the data can be found [here](https://sjhatfield.github.io/Kaggle-melanoma-contest-exploration/).
 
 ## Idea
 
