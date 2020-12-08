@@ -42,7 +42,7 @@ A convolutional neural network was used with the [resnet 34 architecture](https:
 
 ### Finding A Learning Rate
 
-We begin training by using the wonderful built-in function `lr_find` on our cnn learner. This is an implementation of the results found by Leslie Smith in his paper [Cyclical Learning Rates for Training Neural Networks](https://arxiv.org/abs/1506.01186). Roughly, it lets the learning go on a mock learning procedure beginning with a very low rate (default $$1\times 10^{-7}$$), gradually increasing it to a large value (default 10) and record the the loss at each stage. The resulting graph you get looks like so
+We begin training by using the powerful built-in function `lr_find` on our cnn learner. This is an implementation of the results found by Leslie Smith in his paper [Cyclical Learning Rates for Training Neural Networks](https://arxiv.org/abs/1506.01186). Roughly, it lets the learning go on a mock learning procedure beginning with a very low rate (default $$1\times 10^{-7}$$), gradually increasing it to a large value (default 10) and record the the loss at each stage. The resulting graph you get looks like so
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/filipino-food-classifier/lr_find1.png" alt="Learning rate finder plot" class="center">
 
