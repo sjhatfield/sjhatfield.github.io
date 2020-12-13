@@ -7,15 +7,15 @@ classes: wide
 excerpt: "Solving a custom made Reinforcement Learning problem using a variety of algorithms"
 ---
 
-If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry). 
+If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry).
 
-In order to revisit concepts and learned earlier in the year taking Georgia Tech's fantastic graduate course in Reinforcement Learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
+In order to revisit concepts and learned earlier in the year taking Georgia Techs fantastic graduate course in Reinforcement Learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
 
 ## Introduction to the Environment
 
-Taking insipiration from my young son who absolutely adores eating all kinds of berries, this environment is made up of a rectangular or square grid which the baby may move around attempting to collect and eat berries. The berries being spherically shaped (use your imagination below), are able to roll around the environment making the game a little more challenging for the baby. Finally, to make the task even more challenging for the intrepid berry hunter there may be a parent present marching around the grid trying to stop the baby from consuming all the expensive berries.
+Taking inspiration from my young son who absolutely adores eating all kinds of berries, this environment is made up of a rectangular or square grid which the baby may move around attempting to collect and eat berries. The berries being spherically shaped (use your imagination below), are able to roll around the environment making the game a little more challenging for the baby. Finally, to make the task even more challenging for the intrepid berry hunter there may be a parent present marching around the grid trying to stop the baby from consuming all the expensive berries.
 
-Here is an example of the baby (in blue) moving randomly around the environment. The berries (in purple) have been given a random movement probability of $$50\%$$. There is a parent (in green) who is also moving randomly around the environment with probability $$50%$\$. Parents (or dads as I call them in the code) are referred to as dumb if they just move randomly.
+Here is an example of the baby (in blue) moving randomly around the environment. The berries (in purple) have been given a random movement probability of $$50\%$$. There is a parent (in green) who is also moving randomly around the environment with probability $$50\%$$. Parents (or dads as I call them in the code) are referred to as dumb if they just move randomly.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/random-dumb.gif" alt="Baby moving randomly against dumb dad"></center>
 
@@ -31,7 +31,7 @@ Rewards are experienced by the baby at each time step. All may be set by the use
 
 ## Programming Concepts
 
-I used this project as an exercise in practicing my object oriented programming. The dad class inherits the berrys methods and expands upon them. All characters are instantiated by the board and an action by the baby is handled by the board by calling methods from berries, the baby and the dad.
+I used this project as an exercise in practicing my object oriented programming. The dad class inherits the Berry methods and expands upon them. All characters are instantiated by the board and an action by the baby is handled by the board by calling methods from berries, the baby and the dad.
 
 Some testing using assertion statements is performed when the board is initialized which helped track down some bugs when running some example environments. The whole project is neatly divided into different sections with their own folders.
 
@@ -43,11 +43,11 @@ Once the environment was created and tested it was time to solve it using a vari
 
 The easier game is considered *beaten* if the learner can average zero total reward over $$200$$ consecutive episodes. In the harder game the learner has to average over $$-30$$.
 
-Finally, for the easier game the learners had $$30,000$$ episodes to train over and the harder game gave $$100,000$$. All the learners made use of an epsilon greedy policy for which epsilon was decayed over $$90\%$$ of training epsiodes from $$1$$ to $$0.01$$.
+Finally, for the easier game the learners had $$30,000$$ episodes to train over and the harder game gave $$100,000$$. All the learners made use of an epsilon greedy policy for which epsilon was decayed over $$90\%$$ of training episodes from $$1$$ to $$0.01$$.
 
 ## The Learners
 
-So far the learners successfully implemeneted are:
+So far the learners successfully implemented are:
 
 * SARSA
 * $$n$$-step SARSA
@@ -64,7 +64,7 @@ Q-learning improves upon SARSA by updating the Q-value towards the best possible
 
 $$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha (R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(S_t, A_t))$$
 
-As the Q-value is a measure of *total discounted future reward* selecting the maximum Q-value accross all actions for the next state is a quicker way to update Q-values towards the optimum.
+As the Q-value is a measure of *total discounted future reward* selecting the maximum Q-value across all actions for the next state is a quicker way to update Q-values towards the optimum.
 
 Both of these algorithms were used in the course I studied in assignments so I had experience with them already.
 
@@ -74,11 +74,11 @@ A value of $$n = 3$$ was found to work best in this environment which means the 
 
 $$Q_{t+3}(S_t, A_t) = Q_{t + 3 - 1}(S_t, A_t) + \alpha (R_{t+1} + \gamma R_{t + 2} + \gamma^2 R_{t+3} + \gamma ^ 3Q_{t+2}(S_{t+3}, A_{t+3}) - Q_{t+2}(S_t, A_t))$$
 
-The intuitive way of thinking about the algorithm is that reward experienced propogates backwards to state action pairs 3 steps previous. Sutton and Barto's excellent book "Reinforcement Learning: An Introduction" illustrates it well on page 147
+The intuitive way of thinking about the algorithm is that reward experienced propagates backwards to state action pairs 3 steps previous. Sutton and Barto's excellent book "Reinforcement Learning: An Introduction" illustrates it well on page 147
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/nstepSARSA.png" alt="Visualization of 1-step SARSA compared to 10-step SARSA"></center>
 
-Double Q-learning makes up for a shortcoming in regular Q-learning quite elegently. The shortcome in Q-learning is most easily seen by way of a simple example. From Sutton and Barto page 135, consider the small Markov Decision Process shown below:
+Double Q-learning makes up for a shortcoming in regular Q-learning quite elegantly. The short-come in Q-learning is most easily seen by way of a simple example. From Sutton and Barto page 135, consider the small Markov Decision Process shown below:
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/smallMDP.png" alt="Small MDP for double Q-learning"></center>
 
@@ -96,7 +96,7 @@ So those are the four algorithms currently implemented. They can be found [here]
 
 ### Dumb Dad
 
-All algorithms were able to beat the dumd dad except for regular SARSA. The double Q-learner was able to beat it in the fewest episodes and its running average total reward over 200 episodes is shown below.
+All algorithms were able to beat the dumb dad except for regular SARSA. The double Q-learner was able to beat it in the fewest episodes and its running average total reward over 200 episodes is shown below.
 
 <center><img src="{{ site.url }}{{ site.baseurl }}/images/babyberry/dumb_dad/double_Qlearner/episode_rewards.png" alt="Running average total reward per episode for double Q-learner"></center>
 
@@ -122,7 +122,7 @@ If we think about how often double Q-learner updates are performed, we notice th
 
 ## What Have I Learnt?
 
-In terms of new concepts this project has introduced double-Qlearning which was not covered in the course I took. I used annotations and vertical lines in matplotlib figures for the first time. Also, creating the gifs of the game running was a new and slightly frustrating experience.
+In terms of new concepts this project has introduced double Q-learning which was not covered in the course I took. I used annotations and vertical lines in matplotlib figures for the first time. Also, creating the gifs of the game running was a new and slightly frustrating experience.
 
 ## What Next?
 
@@ -136,3 +136,4 @@ Here is a list of additional features and algorithms I would like to add to this
 * Add a reward penalty for getting stuck in a loop to encourage the baby to make random movements to explore the board.
 
 [^1]: As I was writing this I realized that in some situations the baby may want to stay still if they anticipate a berry randomly moving into them. The baby moves before the berries so maybe they would not choose to stay still but I can experiment with adding this sixth action.
+
