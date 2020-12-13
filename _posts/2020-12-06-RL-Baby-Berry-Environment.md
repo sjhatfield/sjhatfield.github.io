@@ -31,7 +31,7 @@ Rewards are experienced by the baby at each time step. All may be set by the use
 
 ## Programming Concepts
 
-I used this project as an exercise in practicing my object oriented programming. The dad class inherits the Berry methods and expands upon them. All characters are instantiated by the board and an action by the baby is handled by the board by calling methods from berries, the baby and the dad.
+I used this project as an exercise in practicing my object-oriented programming. The dad class inherits the Berry methods and expands upon them. All characters are instantiated by the board and an action by the baby is handled by the board by calling methods from berries, the baby and the dad.
 
 Some testing using assertion statements is performed when the board is initialized which helped track down some bugs when running some example environments. The whole project is neatly divided into different sections with their own folders.
 
