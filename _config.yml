@@ -108,7 +108,7 @@ analytics:
 author:
   name             : "Sam Hatfield"
   avatar           : "/images/bio-photo.jpg"
-  bio              : "Mathematician -> Data Scientist"
+  bio              : "Data Scientist | Mathematician"
   location         : "Manila, Philippines"
   email            : "s.j.hatfield@live.co.uk"
   links:
@@ -127,9 +127,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/sjhatfield"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/sjhatters"
+    #- label: "Instagram"
+    #  icon: "fab fa-fw fa-instagram"
+    #  url: "https://instagram.com/sjhatters"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/sam-hatfield/"
