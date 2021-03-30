@@ -169,7 +169,7 @@ Once I started to train the larger models it was completely infeasible to use my
 
 ## Results
 
-| Model | Local or Cloud | Image Size | External Data | CV AUC-ROC | Public LB | Private LB | Training Time (hours) |
+| Model | Local or Cloud | Image Size | External Data | CV AUC-ROC | Private LB | Public LB | Training Time (hours) |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | AlexNet | Local | 128 | No | 0.7699 | 0.8736 | 0.8786 | 2.86 |
 | ResNet18 | Local | 64 | No | 0.8056 | 0.8801 | 0.8780 | 3.50 |
