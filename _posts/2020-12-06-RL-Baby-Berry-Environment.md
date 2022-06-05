@@ -9,7 +9,7 @@ excerpt: "Solving a custom made Reinforcement Learning problem using a variety o
 
 If you would prefer to learn about this project by reading the code [go here](https://github.com/sjhatfield/babyberry).
 
-In order to revisit concepts and learned earlier in the year taking Georgia Techs fantastic graduate course in Reinforcement Learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
+In order to revisit concepts I learned earlier in the year taking Georgia Techs fantastic graduate course in Reinforcement Learning, I decided to develop my own learning environment and solve it using a variety of RL algorithms.
 
 ## Introduction to the Environment
 
